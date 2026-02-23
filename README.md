@@ -1,2 +1,2 @@
 # robocook
-Backend of a recipe application, Robocook
+Backend of a recipeEntity application, Robocook

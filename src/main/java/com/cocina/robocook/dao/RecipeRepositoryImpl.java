@@ -27,7 +27,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     @Override
     public Recipe findRecipeById(Long id) {
 
-        TypedQuery<Recipe> query = entityManager.createQuery("select r from Recipe r join fetch r.steps where r.id = :valueId", Recipe.class);
+        TypedQuery<Recipe> query = entityManager.createQuery("select r from RecipeEntity r join fetch r.steps where r.id = :valueId", Recipe.class);
         query.setParameter("valueId", id);
 
         Recipe recipe = query.getSingleResult();
@@ -36,12 +36,12 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     }
 
     // mejor dividir esta consulta en varias para no tener múltiples JOIN
-    // otra alternativa es utilizando JPA user @EntityGraph, también se puede utilizar con DAO custom, pero hay que crear usar @NamedEntityGraph en el repository de Recipe
+    // otra alternativa es utilizando JPA user @EntityGraph, también se puede utilizar con DAO custom, pero hay que crear usar @NamedEntityGraph en el repository de RecipeEntity
     // no sé si esta consulta va a tener sentido en la app por eso no la evoluciono
     @Override
     public Recipe findRecipeAndIngredientsById(Long id) {
         TypedQuery<Recipe> query = entityManager.createQuery("select distinct r " +
-                "from Recipe r join fetch r.recipeIngredients ri " +
+                "from RecipeEntity r join fetch r.recipeIngredients ri " +
                 "join fetch ri.ingredient " +
                 "join fetch r.steps " +
                 "where r.id = :data", Recipe.class);
@@ -54,7 +54,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
     @Override
     public Recipe findRecipeCompleteById(Long id) {
         TypedQuery<Recipe> query = entityManager.createQuery("select distinct r " +
-                "from Recipe r left join fetch r.recipeIngredients ri " +
+                "from RecipeEntity r left join fetch r.recipeIngredients ri " +
                 "left join fetch r.categories " +
                 "left join fetch r.labels " +
                 "left join fetch ri.ingredient " +
@@ -86,7 +86,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
 
     @Override
     public Category findCategoryAndRecipesById(Long id) {
-        TypedQuery<Category> query = entityManager.createQuery("select distinct c from Category c " +
+        TypedQuery<Category> query = entityManager.createQuery("select distinct c from CategoryEntity c " +
                 "LEFT JOIN FETCH c.recipes where c.id= :dataId", Category.class);
         query.setParameter("dataId", id);
 
@@ -108,7 +108,7 @@ public class RecipeRepositoryImpl implements RecipeRepository {
 
     @Override
     public Label findLabelAndRecipesById(Long id) {
-        TypedQuery<Label> query = entityManager.createQuery("select distinct l from Label l " +
+        TypedQuery<Label> query = entityManager.createQuery("select distinct l from LabelEntity l " +
                                             "LEFT JOIN FETCH l.recipes where l.id= :dataId", Label.class);
         query.setParameter("dataId", id);
 

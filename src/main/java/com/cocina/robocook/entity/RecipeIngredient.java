@@ -101,7 +101,7 @@ public class RecipeIngredient {
 
     @Override
     public String toString() {
-        return "RecipeIngredient{" +
+        return "RecipeIngredientEntity{" +
                 "id=" + id +
                 ", amount=" + amount +
                 ", unit='" + unit + '\'' +

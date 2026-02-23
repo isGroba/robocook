@@ -238,7 +238,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe{" +
+        return "RecipeEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

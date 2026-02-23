@@ -69,7 +69,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
+        return "IngredientEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", calories=" + calories +

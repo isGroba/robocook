@@ -66,7 +66,7 @@ public class Step {
 
     @Override
     public String toString() {
-        return "Step{" +
+        return "StepEntity{" +
                 "id=" + id +
                 ", orderNumber=" + orderNumber +
                 ", description='" + description + '\'' +

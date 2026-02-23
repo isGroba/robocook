@@ -66,7 +66,7 @@ public class Label {
 
     @Override
     public String toString() {
-        return "Label{" +
+        return "LabelEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

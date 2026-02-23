@@ -29,7 +29,7 @@ public interface RecipeRepository {
 
     void deleteLabelById(Long id);
 
-    // methods for Step class
+    // methods for StepEntity class
     Step findStepById(Long id);
 
     void updateStep(Step tempStep);

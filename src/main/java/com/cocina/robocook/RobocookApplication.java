@@ -64,7 +64,7 @@ public class RobocookApplication {
 
 		Recipe tempReceita = receitaRepository.findRecipeAndIngredientsById(id);
 
-		System.out.println("Recipe: " + tempReceita);
+		System.out.println("RecipeEntity: " + tempReceita);
 		System.out.println("Pasos: " + tempReceita.getSteps());
 		System.out.println("Ingredientes: " + tempReceita.getRecipeIngredients());
 
@@ -129,7 +129,7 @@ public class RobocookApplication {
 
 	private void deletePasoById(RecipeRepository receitaRepository) {
 		long id = 5;
-		System.out.println("Deletting Step: " + id);
+		System.out.println("Deletting StepEntity: " + id);
 		receitaRepository.deleteStepById(id);
 		System.out.println("Done!");
 
@@ -144,14 +144,14 @@ public class RobocookApplication {
 		Ingredient tempIngredient = receitaRepository.findIngredientById(ingredientId);
 
 		//tempReceita.setPreparationTime("55");
-		//tempReceita.addStep(new Step(5, "Saborea este plato... y ponte a recoger!!"));
-		//tempReceita.addRecipeIngredient(new RecipeIngredient(tempReceita, tempIngredient, 200.0, "mililitros"));
+		//tempReceita.addStep(new StepEntity(5, "Saborea este plato... y ponte a recoger!!"));
+		//tempReceita.addRecipeIngredient(new RecipeIngredientEntity(tempReceita, tempIngredient, 200.0, "mililitros"));
 
 		System.out.println("Adding label");
 		Label theLabel = new Label("Para os nenos");
 		tempReceita.addLabel(theLabel);
 
-		System.out.println("Adding Category");
+		System.out.println("Adding CategoryEntity");
 		Category theCategory = new Category("vexetariana");
 		tempReceita.addCategory(theCategory);
 
@@ -167,7 +167,7 @@ public class RobocookApplication {
 
 		Recipe tempReceita = receitaRepository.findRecipeById(id);
 
-		System.out.println("Recipe: " + tempReceita);
+		System.out.println("RecipeEntity: " + tempReceita);
 		System.out.println("Pasos: " + tempReceita.getSteps()
 		);
 
@@ -182,7 +182,7 @@ public class RobocookApplication {
 		aReceita.addStep( new Step(3, "Xuntar todos os ingredientes na tarteira, e aliñar con aceite, vinagre e sal o gusto. Unha vez feito isto engadir maionesa o gusto e mezclar todo ben."));
 		aReceita.addStep( new Step(4, "Servir e disfrutar."));
 
-		System.out.println("Recipe; " + aReceita);
+		System.out.println("RecipeEntity; " + aReceita);
 		System.out.println("Pasos: " + aReceita.getSteps());
 
 		receitaRepository.saveRecipe(aReceita);
