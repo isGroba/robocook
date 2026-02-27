@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Category', 'categories', 'Add category')}">
+<head>
+    <title>Category</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container">
+
+    <p class="h4 mb-4">Add new category</p>
+    <hr>
+    <form action="#" th:action="@{/categories/save}" th:object="${theCategory}" method="POST">
+
+        <!-- add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Name</span>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Category name" aria-label="Name" required>
+        </div>
+
+        <button type="submit" class="btn btn-info col-1">Save</button>
+    </form>
+
+    <hr>
+    <a th:href="@{/categories/list}">Go to list categories</a>
+</div>
+</body>
+</html>

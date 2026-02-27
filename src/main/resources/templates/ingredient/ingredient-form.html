@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Ingredient', 'ingredients', 'Add ingredient')}">
+<head>
+    <title>Ingredient</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container">
+
+    <p class="h4 mb-4">Add new ingredient</p>
+
+    <form action="#" th:action="@{/ingredients/save}" th:object="${theIngredient}" method="POST">
+
+        <!-- add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text col-1" id="basic-addon1">Name</span>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Ingredient name" aria-label="Name">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-1" id="basic-addon2">Calories</span>
+            <input type="text" th:field="*{calories}" class="form-control" placeholder="Calories" aria-label="Name" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-1" id="basic-addon3">Alternative</span>
+            <input type="text" th:field="*{alternative}" class="form-control" placeholder="Alternative ingredient" aria-label="Name">
+        </div>
+
+        <button type="submit" class="btn btn-info col-1">Save</button>
+    </form>
+
+    <hr>
+    <a th:href="@{/ingredients/list}">Go to list ingredients</a>
+</div>
+</body>
+</html>

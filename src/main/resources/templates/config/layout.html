@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layoutBase(title, list, add)">
+
+<head th:replace="~{config/main-fragments :: head(${title})}"></head>
+
+<body>
+
+<header th:replace="~{config/main-fragments :: header(${list},${add})}"></header>
+
+<main>
+    <!-- content custom page -->
+    <div th:replace="~{::content}"></div>
+</main>
+
+<footer th:replace="~{config/main-fragments :: footer()}"></footer>
+
+</body>
+</html>

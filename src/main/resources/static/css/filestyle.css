@@ -1,0 +1,82 @@
+
+/* css web */
+.simple-a {
+    text-decoration: none;
+}
+
+/* HEADER */
+.main-header {
+    background-color: #dcdcdc;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+/* FOOTER */
+.main-footer {
+    background: #1f1f2e;
+    color: #ddd;
+    margin-top: 40px;
+    padding-top: 30px;
+}
+
+/* Contenedor */
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Columnas */
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 20px;
+}
+
+/* Títulos */
+.footer-section h3,
+.footer-section h4 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* Links */
+.footer-section a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #fff;
+}
+
+/* Lista */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Parte inferior */
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333;
+    margin-top: 20px;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #aaa;
+}

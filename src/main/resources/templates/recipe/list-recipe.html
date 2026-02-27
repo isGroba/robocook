@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Recipe', 'recipes', null)}">
+<head>
+    <title>Recipe</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container">
+
+    <!-- add button -->
+    <a th:href="@{/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New recipe</a>
+    <br></br>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark placeholder-wave">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempRecipe : ${recipes}">
+            <td th:text="${tempRecipe.id}"/>
+            <td th:text="${tempRecipe.name}"/>
+            <td>
+                <!-- add update button link -->
+                <a th:href="@{/recipes/showFormForUpdate(recipeId=${tempRecipe.id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+                <!-- add delete button link -->
+                <a th:href="@{/recipes/delete(recipeId=${tempRecipe.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if(!(confirm('Do you want delete this recipe?')))return false">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

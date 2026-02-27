@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Robocook', null, null)}">
+
+<head>
+    <title>Robocook</title>
+</head>
+
+<body>
+
+<div th:fragment="content" class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark placeholder-wave">
+        <tr>
+            <th>Entities</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td th:text="Ingredients"></td>
+            <td>
+                <a th:href="@{/ingredients/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
+                <a th:href="@{/ingredients/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="Categories"></td>
+            <td>
+                <a th:href="@{/categories/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
+                <a th:href="@{/categories/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="Labels"></td>
+            <td>
+                <a th:href="@{/labels/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
+                <a th:href="@{/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="Recipes"></td>
+            <td>
+                <a th:href="@{/recipes/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
+                <a th:href="@{/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

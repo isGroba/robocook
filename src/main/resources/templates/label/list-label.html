@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Label', 'labels', null)}">
+<head>
+    <title>Label</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container">
+
+    <!-- add button -->
+    <a th:href="@{/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New label</a>
+    <br></br>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark placeholder-wave">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="tempLabel : ${labels}">
+            <td th:text="${tempLabel.id}"/>
+            <td th:text="${tempLabel.name}"/>
+            <td>
+                <!-- add update button link -->
+                <a th:href="@{/labels/showFormForUpdate(labelId=${tempLabel.id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+                <!-- add delete button link -->
+                <a th:href="@{/labels/delete(labelId=${tempLabel.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if(!(confirm('Do you want delete this label?')))return false">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

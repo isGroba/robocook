@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{config/layout :: layoutBase('Recipe', 'recipes', 'Add recipe')}">
+<head>
+    <title>Recipe</title>
+</head>
+
+<body>
+<div th:fragment="content" class="container">
+
+    <p class="h4 mb-4">Add new recipe</p>
+
+    <form action="#" th:action="@{/recipes/save}" th:object="${theRecipe}" method="POST">
+        <!-- add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon1">Name</span>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="What´s it name?" aria-label="Name" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon2">Description</span>
+            <input type="text" th:field="*{description}" class="form-control" placeholder="Tell me about the recipe" aria-label="description" >
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon3">Time to prepare</span>
+            <input type="text" th:field="*{preparationTime}" class="form-control" placeholder="Amount in minutes" aria-label="time" >
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon4">Dificulty to prepare</span>
+            <input type="text" th:field="*{difficulty}" class="form-control" placeholder="Is this recipe very difficult to cook?" aria-label="difficulty" >
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon5">Season</span>
+            <input type="text" th:field="*{season}" class="form-control" placeholder="Which station is it from?" aria-label="season" >
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon6">Healthy score</span>
+            <input type="text" th:field="*{healthyScore}" class="form-control" placeholder="from 0 to 100" aria-label="healthy_score">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon7">Taste score</span>
+            <input type="text" th:field="*{tasteScore}" class="form-control" placeholder="from 0 to 100" aria-label="taste_score">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text col-2" id="basic-addon8">Diners</span>
+            <input type="text" th:field="*{porcions}" class="form-control" placeholder="Tell me about the recipe" aria-label="portions">
+        </div>
+
+        <p class="h4 mb-4">Steps</p>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark placeholder-wave">
+                <tr>
+                    <th>Order</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody id="steps-container" >
+                <tr th:each="step, iterStat : *{steps}">
+                    <input type="hidden" th:field="*{steps[__${iterStat.index}__].id}">
+                    <td class="col-1"><input type="text" th:field="*{steps[__${iterStat.index}__].orderNumber}" class="form-control" placeholder="Num"></td>
+                    <td><input type="text" th:field="*{steps[__${iterStat.index}__].description}" class="form-control" placeholder="Description" aria-label="description"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" onclick="addStep()" class="btn btn-warning col-1">New step</button>
+        <button type="submit" class="btn btn-info col-1">Save recipe</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/recipes/list}">Go to list recipes</a>
+
+    <script th:inline="javascript">
+        let stepIndex = [[${#lists.size(theRecipe.steps)}]];
+
+        function addStep() {
+            const container = document.getElementById("steps-container");
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <input type="hidden" name="steps[${stepIndex}].id">
+
+                <td class="col-1">
+                    <input type="text" name="steps[${stepIndex}].orderNumber" class="form-control" placeholder="Num">
+                </td>
+                <td>
+                    <input type="text" name="steps[${stepIndex}].description" class="form-control" placeholder="Description">
+                </td>
+            `;
+
+            container.appendChild(tr);
+            stepIndex++;
+        }
+    </script>
+</div>
+</body>
+</html>
