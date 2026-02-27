@@ -6,15 +6,14 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 
 @Repository
-public class RecipeRepositoryImpl implements RecipeRepository {
+public class RobocookRepositoryImpl implements RobocookRepository {
 
     private final EntityManager entityManager;
 
-    public RecipeRepositoryImpl(EntityManager entityManager) {
+    public RobocookRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

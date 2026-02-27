@@ -3,7 +3,9 @@ package com.cocina.robocook.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -64,7 +66,7 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     @OrderBy("orderNumber ASC")
-    private Set<Step> steps;
+    private List<Step> steps;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RecipeIngredient> recipeIngredients;
@@ -175,11 +177,11 @@ public class Recipe {
         this.saveDate = saveDate;
     }
 
-    public Set<Step> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(Set<Step> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
@@ -210,7 +212,7 @@ public class Recipe {
     // add a convenience method
     public void addStep(Step theStep){
         if(steps == null)
-            steps = new HashSet<>();
+            steps = new ArrayList<>();
 
         steps.add(theStep);
     }
