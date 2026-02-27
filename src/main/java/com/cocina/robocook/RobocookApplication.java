@@ -1,14 +1,12 @@
 package com.cocina.robocook;
 
-import com.cocina.robocook.dao.RecipeRepository;
+import com.cocina.robocook.dao.RobocookRepository;
 import com.cocina.robocook.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -19,7 +17,7 @@ public class RobocookApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(RecipeRepository receitaRepository) {
+	public CommandLineRunner commandLineRunner(RobocookRepository receitaRepository) {
 		return runner -> {
 
 			//########## RECEITA-PASO ######################
@@ -45,21 +43,21 @@ public class RobocookApplication {
 		};
 	}
 
-	private void deleteCategory(RecipeRepository receitaRepository) {
-		receitaRepository.deleteCategoryById((long)1);
+	private void deleteCategory(RobocookRepository receitaRepository) {
+		//receitaRepository.deleteCategoryById((long)1);
 	}
 
-	private void buscandoCousas(RecipeRepository receitaRepository) {
+	private void buscandoCousas(RobocookRepository receitaRepository) {
 		Label theLabel = receitaRepository.findLabelAndRecipesById((long)2);
 		System.out.println(theLabel);
 		System.out.println(theLabel.getRecipes());
 	}
 
-	private void deleteLabel(RecipeRepository receitaRepository) {
+	private void deleteLabel(RobocookRepository receitaRepository) {
 		receitaRepository.deleteLabelById((long)1);
 	}
 
-	private void findRecitaWithStepsAndIngredientsById(RecipeRepository receitaRepository) {
+	private void findRecitaWithStepsAndIngredientsById(RobocookRepository receitaRepository) {
 		long id = 5;
 
 		Recipe tempReceita = receitaRepository.findRecipeAndIngredientsById(id);
@@ -78,7 +76,7 @@ public class RobocookApplication {
 
 	}
 
-	private void saveRecipeAndStepsAndIngredients(RecipeRepository receitaRepository) {
+	private void saveRecipeAndStepsAndIngredients(RobocookRepository receitaRepository) {
 
 		System.out.println("Creating recipe... ");
 		Recipe theRecipe = new Recipe("Tortilla de pataca", "Tortilla básica de pataca", "50", Dificulty.MEDIA, Season.INVERNO, "70", "90", "4", "1700");
@@ -109,14 +107,14 @@ public class RobocookApplication {
 		System.out.println("Done!");
 	}
 
-	private void deleteRecetaById(RecipeRepository receitaRepository) {
+	private void deleteRecetaById(RobocookRepository receitaRepository) {
 		long id = 5;
 
 		receitaRepository.deleteRecipeById(id);
 		System.out.println("Done!");
 	}
 
-	private void updatePaso(RecipeRepository receitaRepository) {
+	private void updatePaso(RobocookRepository receitaRepository) {
 		long id = 5;
 		System.out.println("Finding step: " + id);
 		Step tempStep = receitaRepository.findStepById(id);
@@ -127,7 +125,7 @@ public class RobocookApplication {
 		System.out.println("DONE!");
 	}
 
-	private void deletePasoById(RecipeRepository receitaRepository) {
+	private void deletePasoById(RobocookRepository receitaRepository) {
 		long id = 5;
 		System.out.println("Deletting Step: " + id);
 		receitaRepository.deleteStepById(id);
@@ -135,7 +133,7 @@ public class RobocookApplication {
 
 	}
 
-	private void updateReceita(RecipeRepository receitaRepository) {
+	private void updateReceita(RobocookRepository receitaRepository) {
 		long id = 5;
 		long ingredientId = 8;
 
@@ -162,7 +160,7 @@ public class RobocookApplication {
 
 	}
 
-	private void findReceitaById(RecipeRepository receitaRepository) {
+	private void findReceitaById(RobocookRepository receitaRepository) {
 		long id = 5;
 
 		Recipe tempReceita = receitaRepository.findRecipeById(id);
@@ -173,7 +171,7 @@ public class RobocookApplication {
 
 	}
 
-	private void saveRecietaAndPasos(RecipeRepository receitaRepository) {
+	private void saveRecietaAndPasos(RobocookRepository receitaRepository) {
 		Recipe aReceita = new Recipe("Ensaladilla rusa", "Ensaladilla moi fresca, con diferentes ingredientes e maionesa", "45", Dificulty.SINXELA, Season.VERAN,
 				"85", "95", "4", "1500");
 
