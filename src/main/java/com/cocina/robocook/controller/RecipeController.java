@@ -1,9 +1,7 @@
 package com.cocina.robocook.controller;
 
 import com.cocina.robocook.dao.RecipeRepository;
-import com.cocina.robocook.entity.Label;
-import com.cocina.robocook.entity.Recipe;
-import com.cocina.robocook.entity.Step;
+import com.cocina.robocook.entity.*;
 import com.cocina.robocook.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +29,9 @@ public class RecipeController {
 
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model model){
+        model.addAttribute("difficulties", Difficulty.values());
+        model.addAttribute("seasons", Season.values());
+
         Recipe recipe = new Recipe();
         recipe.addStep(new Step());
         model.addAttribute("theRecipe", recipe);
@@ -40,6 +41,9 @@ public class RecipeController {
 
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("recipeId") int theId, Model model){
+        model.addAttribute("difficulties", Difficulty.values());
+        model.addAttribute("seasons", Season.values());
+
         Recipe theRecipe = recipeService.findById((long)theId);
         model.addAttribute("theRecipe", theRecipe);
         return "recipe/recipe-form";
@@ -55,6 +59,6 @@ public class RecipeController {
     @GetMapping("/delete")
     public String deleteLabel(@RequestParam("recipeId") int theId, Model model){
         recipeService.deleteById((long)theId);
-        return "redirect:/labels/list";
+        return "redirect:/recipes/list";
     }
 }

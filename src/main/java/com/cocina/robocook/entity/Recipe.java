@@ -28,7 +28,7 @@ public class Recipe {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "difficulty", nullable = false)
-    private Dificulty difficulty;
+    private Difficulty difficulty;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "season")
@@ -74,7 +74,7 @@ public class Recipe {
     //constructor
     public Recipe(){}
 
-    public Recipe(String name, String description, String preparationTime, Dificulty difficulty, Season season, String healthyScore, String tasteScore, String porcions, String calories) {
+    public Recipe(String name, String description, String preparationTime, Difficulty difficulty, Season season, String healthyScore, String tasteScore, String porcions, String calories) {
         this.name = name;
         this.description = description;
         this.preparationTime = preparationTime;
@@ -121,11 +121,11 @@ public class Recipe {
         this.preparationTime = preparationTime;
     }
 
-    public Dificulty getDifficulty() {
+    public Difficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Dificulty difficulty) {
+    public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
 

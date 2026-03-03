@@ -1,6 +1,6 @@
 package com.cocina.robocook.entity;
 
-public enum Dificulty {
+public enum Difficulty {
     SINXELA,
     MEDIA,
     DIFICIL

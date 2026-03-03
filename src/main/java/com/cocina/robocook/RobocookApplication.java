@@ -79,7 +79,7 @@ public class RobocookApplication {
 	private void saveRecipeAndStepsAndIngredients(RobocookRepository receitaRepository) {
 
 		System.out.println("Creating recipe... ");
-		Recipe theRecipe = new Recipe("Tortilla de pataca", "Tortilla básica de pataca", "50", Dificulty.MEDIA, Season.INVERNO, "70", "90", "4", "1700");
+		Recipe theRecipe = new Recipe("Tortilla de pataca", "Tortilla básica de pataca", "50", Difficulty.MEDIA, Season.INVERNO, "70", "90", "4", "1700");
 
 		System.out.println("Creating steps");
 		Step step1 = new Step(1,"Pelar as patacas e picalas en cadrados para frixir");
@@ -172,7 +172,7 @@ public class RobocookApplication {
 	}
 
 	private void saveRecietaAndPasos(RobocookRepository receitaRepository) {
-		Recipe aReceita = new Recipe("Ensaladilla rusa", "Ensaladilla moi fresca, con diferentes ingredientes e maionesa", "45", Dificulty.SINXELA, Season.VERAN,
+		Recipe aReceita = new Recipe("Ensaladilla rusa", "Ensaladilla moi fresca, con diferentes ingredientes e maionesa", "45", Difficulty.SINXELA, Season.VERAN,
 				"85", "95", "4", "1500");
 
 		aReceita.addStep(new Step(1, "Ferver o variado de verduras que temos gardado no conxelador"));
