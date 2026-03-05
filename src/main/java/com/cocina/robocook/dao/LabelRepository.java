@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LabelRepository extends JpaRepository<Label, Long> {
     List<Label> findAllByOrderByNameAsc();
+
+    List<Label> findByNameContaining(String query);
 }

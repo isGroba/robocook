@@ -10,6 +10,8 @@ public interface CategoryService {
 
     Category findById(Long id);
 
+    List<Category> findByNameContaining(String query);
+
     Category save(Category category);
 
     void deleteById(Long id);

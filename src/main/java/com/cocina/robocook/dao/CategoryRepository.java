@@ -9,4 +9,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findAllByOrderByNameAsc();
 
+    List<Category> findByNameContaining(String query);
+
 }

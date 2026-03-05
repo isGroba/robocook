@@ -8,6 +8,8 @@ public interface LabelService {
 
     List<Label> findAll();
 
+    List<Label> findByNameContaining(String query);
+
     Label findById(Long id);
 
     Label save(Label label);

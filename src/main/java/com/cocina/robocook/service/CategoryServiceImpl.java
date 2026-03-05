@@ -3,7 +3,6 @@ package com.cocina.robocook.service;
 import com.cocina.robocook.dao.CategoryRepository;
 import com.cocina.robocook.entity.Category;
 import com.cocina.robocook.entity.Recipe;
-import com.cocina.robocook.entity.RecipeIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +38,11 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
         return theCategory;
+    }
+
+    @Override
+    public List<Category> findByNameContaining(String query) {
+        return repository.findByNameContaining(query);
     }
 
     @Override

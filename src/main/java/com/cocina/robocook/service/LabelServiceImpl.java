@@ -25,6 +25,11 @@ public class LabelServiceImpl implements LabelService{
     }
 
     @Override
+    public List<Label> findByNameContaining(String query) {
+        return repository.findByNameContaining(query);
+    }
+
+    @Override
     public Label findById(Long id) {
         Label theLabel = null;
 

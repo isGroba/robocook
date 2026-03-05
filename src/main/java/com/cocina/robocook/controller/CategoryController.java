@@ -1,6 +1,7 @@
 package com.cocina.robocook.controller;
 
 import com.cocina.robocook.entity.Category;
+import com.cocina.robocook.entity.Label;
 import com.cocina.robocook.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,5 +54,9 @@ public class CategoryController {
         return "redirect:/categories/list";
     }
 
-
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Category> search(@RequestParam String query) {
+        return categoryService.findByNameContaining(query);
+    }
 }

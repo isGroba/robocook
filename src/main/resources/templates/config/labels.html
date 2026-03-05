@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="labelsComponent(labels)">
+
+  <!-- INPUT -->
+  <input type="text" id="label-input" class="form-control" placeholder="Find labels...">
+
+  <!-- SUGERENCIAS -->
+  <ul id="suggestions" class="list-group mt-1"></ul>
+
+  <!-- LABELS SELECTED -->
+  <div id="selected-labels" class="mt-2"></div>
+
+  <!-- HIDDEN PARA SPRING -->
+  <div id="hidden-labels">
+    <input type="hidden"
+           th:each="label, iterStat : ${labels}"
+           th:name="'labels[' + ${iterStat.index} + '].id'"
+           th:value="${label.id}">
+  </div>
+
+</div>

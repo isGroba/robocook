@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<div th:fragment="categoriesComponent(categories)">
+
+  <!-- INPUT -->
+  <input type="text" id="category-input" class="form-control" placeholder="Find categories...">
+
+  <!-- SUGERENCIAS -->
+  <ul id="category-suggestions" class="list-group mt-1"></ul>
+
+  <!-- CATEGORIES SELECTED -->
+  <div id="selected-categories" class="mt-2"></div>
+
+  <!-- HIDDEN PARA SPRING -->
+  <div id="hidden-categories">
+    <input type="hidden"
+           th:each="category, iterStat : ${categories}"
+           th:name="'categories[' + ${iterStat.index} + '].id'"
+           th:value="${category.id}">
+  </div>
+
+</div>

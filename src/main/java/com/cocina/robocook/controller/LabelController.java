@@ -53,4 +53,11 @@ public class LabelController {
         labelService.deleteById((long)theId);
         return "redirect:/labels/list";
     }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Label> search(@RequestParam String query) {
+        return labelService.findByNameContaining(query);
+    }
+
 }
