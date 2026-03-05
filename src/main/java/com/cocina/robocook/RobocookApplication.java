@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -66,7 +67,7 @@ public class RobocookApplication {
 		System.out.println("Pasos: " + tempReceita.getSteps());
 		System.out.println("Ingredientes: " + tempReceita.getRecipeIngredients());
 
-		Set<RecipeIngredient> listado = tempReceita.getRecipeIngredients();
+		List<RecipeIngredient> listado = tempReceita.getRecipeIngredients();
 		for(RecipeIngredient ri : listado){
 			Ingredient ingredient = ri.getIngredient();
 			System.out.println(ingredient.getName());
@@ -98,9 +99,9 @@ public class RobocookApplication {
 		Ingredient ingredient2 = new Ingredient("Pataca", 10, null);
 		Ingredient ingredient3 = new Ingredient("Aceite", 300, null);
 
-		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient1, 6.0, "unidades"));
-		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient2, 0.5, "kilogramos"));
-		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient3, 200.0, "mililitros"));
+		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient1, 6.0, "unidades", false));
+		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient2, 0.5, "kilogramos", false));
+		theRecipe.addRecipeIngredient(new RecipeIngredient(theRecipe, ingredient3, 200.0, "mililitros", false));
 
 		System.out.println("Processing and saving");
 		receitaRepository.saveRecipe(theRecipe);

@@ -33,11 +33,12 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient, Double amount, String unit) {
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient, Double amount, String unit, boolean optional) {
         this.recipe = recipe;
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
+        this.optional = optional;
     }
 
     public Long getId() {

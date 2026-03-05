@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="recipe")
@@ -41,12 +39,12 @@ public class Recipe {
     private String tasteScore;
 
     @Column(name = "porcions")
-    private String porcions;
+    private String portions;
 
     @Column(name = "calories")
     private String calories;
 
-    @Column(name = "save_date")
+    @Column(name = "save_date", insertable = false, updatable = false)
     private Date saveDate;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -54,14 +52,14 @@ public class Recipe {
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private List<Category> categories;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "recipe_label",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
-    private Set<Label> labels;
+    private List<Label> labels;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
@@ -69,12 +67,12 @@ public class Recipe {
     private List<Step> steps;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RecipeIngredient> recipeIngredients;
+    private List<RecipeIngredient> recipeIngredients;
 
     //constructor
     public Recipe(){}
 
-    public Recipe(String name, String description, String preparationTime, Difficulty difficulty, Season season, String healthyScore, String tasteScore, String porcions, String calories) {
+    public Recipe(String name, String description, String preparationTime, Difficulty difficulty, Season season, String healthyScore, String tasteScore, String portions, String calories) {
         this.name = name;
         this.description = description;
         this.preparationTime = preparationTime;
@@ -82,7 +80,7 @@ public class Recipe {
         this.season = season;
         this.healthyScore = healthyScore;
         this.tasteScore = tasteScore;
-        this.porcions = porcions;
+        this.portions = portions;
         this.calories = calories;
     }
 
@@ -153,12 +151,12 @@ public class Recipe {
         this.tasteScore = tasteScore;
     }
 
-    public String getPorcions() {
-        return porcions;
+    public String getPortions() {
+        return portions;
     }
 
-    public void setPorcions(String porcions) {
-        this.porcions = porcions;
+    public void setPortions(String portions) {
+        this.portions = portions;
     }
 
     public String getCalories() {
@@ -185,27 +183,27 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public Set<RecipeIngredient> getRecipeIngredients() {
+    public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
 
-    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
-    public Set<Label> getLabels() {
+    public List<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(Set<Label> labels) {
+    public void setLabels(List<Label> labels) {
         this.labels = labels;
     }
 
@@ -219,21 +217,21 @@ public class Recipe {
 
     public void addCategory(Category theCategory){
         if(categories == null)
-            categories = new HashSet<>();
+            categories = new ArrayList<>();
 
         categories.add(theCategory);
     }
 
     public void addLabel(Label theLabel){
         if(labels == null)
-            labels = new HashSet<>();
+            labels = new ArrayList<>();
 
         labels.add(theLabel);
     }
 
     public void addRecipeIngredient(RecipeIngredient theRecipeIngredient){
         if(recipeIngredients == null)
-            recipeIngredients = new HashSet<>();
+            recipeIngredients = new ArrayList<>();
 
         recipeIngredients.add(theRecipeIngredient);
     }
@@ -249,7 +247,7 @@ public class Recipe {
                 ", season=" + season +
                 ", healthyScore='" + healthyScore + '\'' +
                 ", tasteScore='" + tasteScore + '\'' +
-                ", porcions='" + porcions + '\'' +
+                ", portions='" + portions + '\'' +
                 ", calories='" + calories + '\'' +
                 ", saveDate=" + saveDate +
                 '}';
