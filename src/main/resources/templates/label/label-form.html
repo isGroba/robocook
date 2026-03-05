@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Label', 'labels', null)}">
 <head>
     <title>Label</title>
@@ -16,7 +16,7 @@
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Name</span>
-            <input type="text" th:field="*{name}" class="form-control" placeholder="Label name" aria-label="Name" required>
+            <input type="text" th:field="*{name}" class="form-control" placeholder="Label name" required>
         </div>
 
         <button type="submit" class="btn btn-info col-1">Save</button>

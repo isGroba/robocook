@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Category', 'categories', null)}">
 <head>
     <title>Category</title>
@@ -25,7 +25,7 @@
         <tr th:each="tempCategory : ${categories}">
             <td th:text="${tempCategory.id}"/>
             <td th:text="${tempCategory.name}"/>
-            <td>
+            <td class="col-2 text-center">
                 <!-- add update button link -->
                 <a th:href="@{/categories/showFormForUpdate(categoryId=${tempCategory.id})}"
                    class="btn btn-info btn-sm">

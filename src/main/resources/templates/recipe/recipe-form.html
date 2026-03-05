@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Recipe', 'recipes', 'Add recipe')}">
 <head>
     <title>Recipe</title>
@@ -17,55 +17,55 @@
             <div class="col-md-6">
                 <fieldset class="form-section">
                     <legend>Recipe Info</legend>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-2 col-form-label text-end pe-3" >Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="What´s it name?" required>
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-2 col-form-label text-end pe-3" >Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{name}" class="form-control" placeholder="What´s it name?" required>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-2 col-form-label text-end pe-3" >Description</label>
-                    <div class="col-sm-10">
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-2 col-form-label text-end pe-3" >Description</label>
+                        <div class="col-sm-10">
                         <textarea type="text" th:field="*{description}" class="form-control" rows="3" placeholder="Tell me about the recipe">
                         </textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-3 col-form-label text-end pe-3" >Time to prepare</label>
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{preparationTime}" class="form-control" placeholder="Amount in minutes" aria-label="time" >
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Time to prepare</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{preparationTime}" class="form-control" placeholder="Amount in minutes" >
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-3 col-form-label text-end pe-3" >Difficulty to prepare</label>
-                    <div class="col-sm-9">
-                        <select th:field="*{difficulty}" class="form-select" >
-                            <option value="">Is this recipe difficult to make?</option>
-                            <option th:each="d : ${difficulties}"
-                                    th:value="${d}"
-                                    th:text="${#strings.capitalize(#strings.toLowerCase(d))}">
-                            </option>
-                        </select>
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Difficulty to prepare</label>
+                        <div class="col-sm-9">
+                            <select th:field="*{difficulty}" class="form-select" required>
+                                <option value="">Is this recipe difficult to make?</option>
+                                <option th:each="d : ${difficulties}"
+                                        th:value="${d}"
+                                        th:text="${#strings.capitalize(#strings.toLowerCase(d))}">
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-3 col-form-label text-end pe-3" >Season</label>
-                    <div class="col-sm-9">
-                        <select th:field="*{season}" class="form-select" >
-                            <option value="">Which station is it from?</option>
-                            <option th:each="s : ${seasons}"
-                                    th:value="${s}"
-                                    th:text="${#strings.capitalize(#strings.toLowerCase(s))}">
-                            </option>
-                        </select>
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Season</label>
+                        <div class="col-sm-9">
+                            <select th:field="*{season}" class="form-select" >
+                                <option value="">Which station is it from?</option>
+                                <option th:each="s : ${seasons}"
+                                        th:value="${s}"
+                                        th:text="${#strings.capitalize(#strings.toLowerCase(s))}">
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3 align-items-center">
-                    <label class="col-sm-3 col-form-label text-end pe-3" >Diners</label>
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{porcions}" class="form-control" placeholder="Tell me about the recipe" aria-label="portions">
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Diners</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{portions}" class="form-control" placeholder="Tell me about the recipe" >
+                        </div>
                     </div>
-                </div>
                 </fieldset>
             </div>
             <div class="col-md-6">
@@ -83,29 +83,58 @@
                             <input type="text" th:field="*{tasteScore}" class="form-control" placeholder="from 0 to 100" >
                         </div>
                     </div>
+                    <div class="row mb-3 ">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Labels</label>
+                        <div class="col-sm-9">
+                            <div th:replace="config/labels :: labelsComponent(${theRecipe.labels})"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 ">
+                        <label class="col-sm-3 col-form-label text-end pe-3" >Categories</label>
+                        <div class="col-sm-9">
+                            <div th:replace="config/categories :: categoriesComponent(${theRecipe.categories})"></div>
+                        </div>
+                    </div>
                 </fieldset>
             </div>
         </div>
-        <p class="h4 mb-4">Steps</p>
 
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark placeholder-wave">
-            <tr>
-                <th>Order</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody id="steps-container">
-            <tr th:each="step, iterStat : *{steps}">
-                <input type="hidden" th:field="*{steps[__${iterStat.index}__].id}">
-                <td class="col-1"><input type="text" th:field="*{steps[__${iterStat.index}__].orderNumber}"
-                                         class="form-control" placeholder="Num"></td>
-                <td><input type="text" th:field="*{steps[__${iterStat.index}__].description}" class="form-control"
-                           placeholder="Description" aria-label="description"></td>
-            </tr>
-            </tbody>
-        </table>
-        <button type="button" onclick="addStep()" class="btn btn-warning col-1">New step</button>
+        <!-- Ingredients -->
+
+        <div class="row">
+            <div class="col-md">
+                <fieldset class="form-section">
+                    <legend>Steps</legend>
+
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark placeholder-wave">
+                        <tr>
+                            <th>Order</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="steps-container">
+                        <tr th:each="step, iterStat : *{steps}">
+                            <input type="hidden" th:field="*{steps[__${iterStat.index}__].id}">
+                            <td class="col-1"><input type="text" th:field="*{steps[__${iterStat.index}__].orderNumber}"
+                                                     class="form-control" placeholder="Num"></td>
+                            <td><input type="text" th:field="*{steps[__${iterStat.index}__].description}" class="form-control"
+                                       placeholder="Description" ></td>
+                            <td class="col-1 text-center">
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm"
+                                        onclick="removeStep(this)">
+                                    X
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" onclick="addStep()" class="btn btn-warning col-1">New step</button>
+                </fieldset>
+            </div>
+        </div>
         <button type="submit" class="btn btn-info col-1">Save recipe</button>
 
     </form>
@@ -115,6 +144,22 @@
 
     <script th:inline="javascript">
         let stepIndex = [[${#lists.size(theRecipe.steps)}]];
+
+        function reindexSteps() {
+            const rows = document.querySelectorAll("#steps-container tr");
+
+            rows.forEach((row, index) => {
+                const inputs = row.querySelectorAll("input");
+
+                inputs.forEach(input => {
+                    if (input.name) {
+                        input.name = input.name.replace(/steps\[\d+]/, `steps[${index}]`);
+                    }
+                });
+            });
+
+            stepIndex = rows.length;
+        }
 
         function addStep() {
             const container = document.getElementById("steps-container");
@@ -130,12 +175,45 @@
                 <td>
                     <input type="text" name="steps[${stepIndex}].description" class="form-control" placeholder="Description">
                 </td>
+                <td class="col-1 text-center">
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeStep(this)">
+                        X
+                    </button>
+                </td>
             `;
 
             container.appendChild(tr);
             stepIndex++;
         }
+
+        function removeStep(button) {
+            const row = button.closest('tr');
+            row.remove();
+            reindexSteps();
+        }
     </script>
+
+    <script th:inline="javascript">
+        window.initialLabels = [
+       /*[# th:each="l : ${theRecipe.labels}"]*/
+           { id: [[${l.id}]], name: [[${l.name}]] },
+       /*[/]*/
+   ];
+    </script>
+
+    <script th:inline="javascript">
+        window.initialCategories = [
+       /*[# th:each="l : ${theRecipe.categories}"]*/
+           { id: [[${l.id}]], name: [[${l.name}]] },
+       /*[/]*/
+   ];
+    </script>
+
+    <script th:src="@{/js/labels.js}"></script>
+    <script th:src="@{/js/categories.js}"></script>
+
+
 </div>
+
 </body>
 </html>

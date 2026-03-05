@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Ingredient', 'ingredients', null)}">
 <head>
     <title>Ingredient</title>
@@ -29,7 +29,7 @@
             <td th:text="${tempIngredient.name}"/>
             <td th:text="${tempIngredient.calories}"/>
             <td th:text="${tempIngredient.alternative}"/>
-            <td>
+            <td class="col-2 text-center">
                 <!-- add update button link -->
                 <a th:href="@{/ingredients/showFormForUpdate(ingredientId=${tempIngredient.id})}"
                    class="btn btn-info btn-sm">

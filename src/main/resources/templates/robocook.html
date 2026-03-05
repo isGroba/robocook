@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Robocook', null, null)}">
 
 <head>
@@ -12,8 +12,8 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark placeholder-wave">
         <tr>
-            <th>Entities</th>
-            <th>Actions</th>
+            <th class="col-8">Entities</th>
+            <th class="col-4">Actions</th>
         </tr>
         </thead>
 
@@ -21,29 +21,29 @@
         <tr>
             <td th:text="Ingredients"></td>
             <td>
-                <a th:href="@{/ingredients/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
-                <a th:href="@{/ingredients/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+                <a th:href="@{/ingredients/list}" class="btn btn-outline-secondary btn-sm_mb-2">List</a>
+                <a th:href="@{/ingredients/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-2">Add new</a>
             </td>
         </tr>
         <tr>
             <td th:text="Categories"></td>
             <td>
-                <a th:href="@{/categories/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
-                <a th:href="@{/categories/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+                <a th:href="@{/categories/list}" class="btn btn-outline-secondary btn-sm_mb-2">List</a>
+                <a th:href="@{/categories/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-2">Add new</a>
             </td>
         </tr>
         <tr>
             <td th:text="Labels"></td>
             <td>
-                <a th:href="@{/labels/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
-                <a th:href="@{/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+                <a th:href="@{/labels/list}" class="btn btn-outline-secondary btn-sm_mb-2">List</a>
+                <a th:href="@{/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-2">Add new</a>
             </td>
         </tr>
         <tr>
             <td th:text="Recipes"></td>
             <td>
-                <a th:href="@{/recipes/list}" class="btn btn-outline-secondary btn-sm_mb-3">List</a>
-                <a th:href="@{/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">Add new</a>
+                <a th:href="@{/recipes/list}" class="btn btn-outline-secondary btn-sm_mb-2">List</a>
+                <a th:href="@{/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-2">Add new</a>
             </td>
         </tr>
         </tbody>

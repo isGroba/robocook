@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{config/layout :: layoutBase('Recipe', 'recipes', null)}">
 <head>
     <title>Recipe</title>
@@ -25,7 +25,7 @@
         <tr th:each="tempRecipe : ${recipes}">
             <td th:text="${tempRecipe.id}"/>
             <td th:text="${tempRecipe.name}"/>
-            <td>
+            <td class="col-2 text-center">
                 <!-- add update button link -->
                 <a th:href="@{/recipes/showFormForUpdate(recipeId=${tempRecipe.id})}"
                    class="btn btn-info btn-sm">
