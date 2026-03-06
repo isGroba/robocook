@@ -52,22 +52,22 @@ public class Recipe {
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "recipe_label",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id"))
-    private List<Label> labels;
+    private List<Label> labels = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     @OrderBy("orderNumber ASC")
-    private List<Step> steps;
+    private List<Step> steps = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecipeIngredient> recipeIngredients;
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     //constructor
     public Recipe(){}
@@ -234,6 +234,7 @@ public class Recipe {
             recipeIngredients = new ArrayList<>();
 
         recipeIngredients.add(theRecipeIngredient);
+        theRecipeIngredient.setRecipe(this);
     }
 
     @Override
