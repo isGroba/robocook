@@ -40,6 +40,7 @@ public class RecipeController {
 
         Recipe recipe = new Recipe();
         recipe.addStep(new Step());
+
         model.addAttribute("theRecipe", recipe);
 
         return "recipe/recipe-form";
@@ -57,6 +58,7 @@ public class RecipeController {
 
     @PostMapping("/save")
     public String saveRecipe(@ModelAttribute("theRecipe") Recipe formRecipe){
+
         Recipe recipeDB;
         List<Label> labels = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
@@ -79,6 +81,13 @@ public class RecipeController {
         recipeDB.setPortions(formRecipe.getPortions());
         recipeDB.setCalories(formRecipe.getCalories());
 
+        if(null != recipeDB.getSteps())
+            recipeDB.getSteps().clear();
+        if(null != formRecipe.getSteps())
+            for(Step s: formRecipe.getSteps()){
+                recipeDB.addStep(s);
+            }
+
         if(null != recipeDB.getLabels())
             recipeDB.getLabels().clear();
         if(null != formRecipe.getLabels())
@@ -93,6 +102,13 @@ public class RecipeController {
             for(Category c: formRecipe.getCategories()){
                 Category category = categoryService.findById(c.getId());
                 recipeDB.addCategory(category);
+            }
+
+        if(null != recipeDB.getRecipeIngredients())
+            recipeDB.getRecipeIngredients().clear();
+        if(null != formRecipe.getRecipeIngredients())
+            for(RecipeIngredient ri: formRecipe.getRecipeIngredients()){
+                recipeDB.addRecipeIngredient(ri);
             }
 
         recipeService.save(recipeDB);

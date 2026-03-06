@@ -55,4 +55,9 @@ public class IngredientController {
         return "redirect:/ingredients/list";
     }
 
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Ingredient> search(@RequestParam String query) {
+        return ingredientService.findByNameContaining(query);
+    }
 }

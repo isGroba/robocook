@@ -9,6 +9,8 @@ public interface IngredientService {
 
     Ingredient findById(Long id);
 
+    List<Ingredient> findByNameContaining(String query);
+
     Ingredient save(Ingredient ingredient);
 
     void deleteById(Long id);
