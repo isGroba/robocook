@@ -1,6 +1,6 @@
 package com.cocina.robocook.service;
 
-import com.cocina.robocook.dao.CategoryRepository;
+import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.entity.Category;
 import com.cocina.robocook.entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;

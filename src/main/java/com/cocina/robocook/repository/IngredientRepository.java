@@ -1,4 +1,4 @@
-package com.cocina.robocook.dao;
+package com.cocina.robocook.repository;
 
 import com.cocina.robocook.entity.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;

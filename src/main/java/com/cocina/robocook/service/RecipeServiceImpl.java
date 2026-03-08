@@ -1,6 +1,6 @@
 package com.cocina.robocook.service;
 
-import com.cocina.robocook.dao.RecipeRepository;
+import com.cocina.robocook.repository.RecipeRepository;
 import com.cocina.robocook.entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.cocina.robocook.service;
 
-import com.cocina.robocook.dao.LabelRepository;
+import com.cocina.robocook.repository.LabelRepository;
 import com.cocina.robocook.entity.Label;
 import com.cocina.robocook.entity.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;

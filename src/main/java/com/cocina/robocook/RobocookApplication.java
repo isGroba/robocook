@@ -1,6 +1,6 @@
 package com.cocina.robocook;
 
-import com.cocina.robocook.dao.RobocookRepository;
+import com.cocina.robocook.repository.RobocookRepository;
 import com.cocina.robocook.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class RobocookApplication {
