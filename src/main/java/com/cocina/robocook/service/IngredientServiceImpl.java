@@ -75,7 +75,6 @@ public class IngredientServiceImpl implements IngredientService{
         Ingredient savedIngredient = repository.save(ingredient);
         log.info("Created new ingredient with ID: {}", savedIngredient.getId());
 
-
         return ingredientMapper.toDTO(savedIngredient);
     }
 
@@ -100,6 +99,7 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     @Transactional
     public void deleteById(Long id) {
+        log.debug("Deleting ingredients with ID {}", id);
 
         if(!repository.existsById(id)){
             log.debug("Ingredient not found with ID: {}", id);

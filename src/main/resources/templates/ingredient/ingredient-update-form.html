@@ -10,10 +10,10 @@
 
     <p class="h4 mb-4">Add new ingredient</p>
 
-    <form action="#" th:action="@{/ingredients/save}" th:object="${theIngredient}" method="POST">
+    <form action="#" th:action="@{/ingredients/update}" th:object="${theIngredient}" method="POST">
 
         <!-- add hidden form field to handle the update -->
-        <!-- <input type="hidden" th:field="*{id}"> -->
+        <input type="hidden" th:field="*{id}">
 
         <div class="input-group mb-3">
             <span class="input-group-text col-1" id="basic-addon1">Name</span>

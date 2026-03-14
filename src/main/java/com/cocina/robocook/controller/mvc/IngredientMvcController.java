@@ -2,6 +2,7 @@ package com.cocina.robocook.controller.mvc;
 
 import com.cocina.robocook.dto.IngredientCreateDTO;
 import com.cocina.robocook.dto.IngredientDTO;
+import com.cocina.robocook.dto.IngredientUpdateDTO;
 import com.cocina.robocook.service.IngredientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class IngredientMvcController {
+
     private final IngredientService ingredientService;
 
     @GetMapping("/list")
@@ -33,8 +35,7 @@ public class IngredientMvcController {
     public String showFormForAdd(Model model){
         log.info("GET /ingredients/showFormForAdd - show creation form");
 
-        IngredientDTO ingredientDTO = new IngredientDTO();
-        model.addAttribute("theIngredient", ingredientDTO);
+        model.addAttribute("theIngredient", new IngredientCreateDTO());
         model.addAttribute("title", "Ingredient");
 
         return "ingredient/ingredient-form";
@@ -44,11 +45,14 @@ public class IngredientMvcController {
     public String showFormForUpdate(@RequestParam("ingredientId") int theId, Model model){
         log.info("GET /ingredients/showFormForUpdate - show update form");
 
+        // TODO :: change IngredientDTO --> IngredientCreateDTO
+
         IngredientDTO theIngredient = ingredientService.findById((long) theId);
         model.addAttribute("theIngredient", theIngredient);
+        model.addAttribute("id", theId);
         model.addAttribute("title", "Ingredient");
 
-        return "ingredient/ingredient-form";
+        return "ingredient/ingredient-update-form";
     }
 
     @PostMapping("/save")
@@ -56,6 +60,15 @@ public class IngredientMvcController {
         log.info("POST /ingredients/save - Save ingredient: {}", createDTO.getName());
 
         ingredientService.create(createDTO);
+        return "redirect:/ingredients/list";
+    }
+
+    @PostMapping("/update")
+    public String updateIngredient(@ModelAttribute("theIngredient") IngredientUpdateDTO updateDTO
+            , @ModelAttribute("id") int theId){
+        log.info("POST /ingredients/update - Update ingredient: {}", updateDTO.getName());
+
+        ingredientService.update((long)theId, updateDTO);
         return "redirect:/ingredients/list";
     }
 
