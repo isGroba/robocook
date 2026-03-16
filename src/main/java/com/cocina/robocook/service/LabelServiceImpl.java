@@ -1,66 +1,112 @@
 package com.cocina.robocook.service;
 
+import com.cocina.robocook.dto.LabelCreateDTO;
+import com.cocina.robocook.dto.LabelDTO;
+import com.cocina.robocook.dto.LabelUpdateDTO;
+import com.cocina.robocook.exception.ResourceNotFoundException;
+import com.cocina.robocook.mapper.LabelMapper;
 import com.cocina.robocook.repository.LabelRepository;
 import com.cocina.robocook.entity.Label;
 import com.cocina.robocook.entity.Recipe;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class LabelServiceImpl implements LabelService{
-    private LabelRepository repository;
 
-    @Autowired
-    public LabelServiceImpl(LabelRepository repository) {
-        this.repository = repository;
+    private final LabelRepository repository;
+    private final LabelMapper labelMapper;
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<LabelDTO> findAll() {
+        log.debug("Get order list by label name");
+
+        return repository.findAllByOrderByNameAsc()
+                .stream()
+                .map(labelMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Label> findAll() {
-        return repository.findAllByOrderByNameAsc();
+    @Transactional(readOnly = true)
+    public LabelDTO findById(Long id) {
+        log.debug("Finding Label with id: {}", id);
+
+        Label result = repository.findById(id)
+                .orElseThrow(()->{
+                    log.error("");
+                    return new ResourceNotFoundException("");
+                });
+
+        return labelMapper.toDTO(result);
     }
 
     @Override
-    public List<Label> findByNameContaining(String query) {
-        return repository.findByNameContaining(query);
+    @Transactional(readOnly = true)
+    public List<LabelDTO> findByNameContaining(String query) {
+        log.debug("Finding labels that contains {}", query);
+
+        if(null == query || query.isEmpty())
+            return List.of();
+
+        return repository.findByNameContaining(query)
+                .stream()
+                .map(labelMapper::toDTO)
+                .collect(Collectors.toList());
+
     }
 
     @Override
-    public Label findById(Long id) {
-        Label theLabel = null;
+    public LabelDTO create(LabelCreateDTO createDTO) {
+        log.debug("Creating new label {}", createDTO.getName());
 
-        Optional<Label> result = repository.findById(id);
+        Label savedLabel = repository.save(labelMapper.toEntity(createDTO));
+        log.info("Created new label with ID: {}", savedLabel.getId());
 
-        if(result.isPresent()){
-            theLabel = result.get();
-        }else{
-            throw new RuntimeException("Non se puido atopar a etiqueta para o id: " + id);
-        }
-
-        return theLabel;
+        return labelMapper.toDTO(savedLabel);
     }
 
     @Override
-    public Label save(Label label) {
-        return repository.save(label);
+    public LabelDTO update(Long id, LabelUpdateDTO updateDTO) {
+        log.debug("Updating labels with ID {}", id);
+
+        Label label = repository.findById(id)
+                .orElseThrow(()->{
+                    log.error("Label Not found with ID: {}", id);
+                    return new ResourceNotFoundException("Label Not found with ID: " + id);
+                });
+        labelMapper.updateEntity(updateDTO, label);
+
+        Label labelUpdated = repository.save(label);
+
+        return labelMapper.toDTO(labelUpdated);
     }
 
     @Override
     public void deleteById(Long id) {
-        Label label = null;
-        Optional<Label> result = repository.findById(id);
-        if(result.isPresent()){
-            label = result.get();
-            Set<Recipe> recipes = label.getRecipes();
-            for(Recipe recipe: recipes){
-                recipe.getLabels().remove(label);
-            }
-            repository.deleteById(id);
+        log.debug("Deleting labels with ID {}", id);
+
+        Label result = repository.findById(id)
+                .orElseThrow(()->{
+                    log.error("Label not found with ID: {}", id);
+                    return new ResourceNotFoundException("Label not found with ID: " + id);
+                });
+
+        Set<Recipe> recipes = result.getRecipes();
+        for(Recipe recipe: recipes){
+            recipe.getLabels().remove(result);
         }
+        repository.deleteById(id);
     }
 
 }

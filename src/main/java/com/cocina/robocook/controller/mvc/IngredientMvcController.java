@@ -45,11 +45,8 @@ public class IngredientMvcController {
     public String showFormForUpdate(@RequestParam("ingredientId") int theId, Model model){
         log.info("GET /ingredients/showFormForUpdate - show update form");
 
-        // TODO :: change IngredientDTO --> IngredientCreateDTO
-
         IngredientDTO theIngredient = ingredientService.findById((long) theId);
         model.addAttribute("theIngredient", theIngredient);
-        model.addAttribute("id", theId);
         model.addAttribute("title", "Ingredient");
 
         return "ingredient/ingredient-update-form";

@@ -1,18 +1,22 @@
 package com.cocina.robocook.service;
 
-import com.cocina.robocook.entity.Category;
+import com.cocina.robocook.dto.CategoryCreateDTO;
+import com.cocina.robocook.dto.CategoryDTO;
+import com.cocina.robocook.dto.CategoryUpdateDTO;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    List<Category> findAll();
+    List<CategoryDTO> findAll();
 
-    Category findById(Long id);
+    CategoryDTO findById(Long id);
 
-    List<Category> findByNameContaining(String query);
+    List<CategoryDTO> findByNameContaining(String query);
 
-    Category save(Category category);
+    CategoryDTO create(CategoryCreateDTO createDTO);
+
+    CategoryDTO update(Long id, CategoryUpdateDTO updateDTO);
 
     void deleteById(Long id);
 

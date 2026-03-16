@@ -1,66 +1,114 @@
 package com.cocina.robocook.service;
 
+import com.cocina.robocook.dto.CategoryCreateDTO;
+import com.cocina.robocook.dto.CategoryDTO;
+import com.cocina.robocook.dto.CategoryUpdateDTO;
+import com.cocina.robocook.exception.ResourceNotFoundException;
+import com.cocina.robocook.mapper.CategoryMapper;
 import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.entity.Category;
 import com.cocina.robocook.entity.Recipe;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
+@Slf4j
 public class CategoryServiceImpl implements CategoryService{
 
-    private CategoryRepository repository;
+    private final CategoryRepository repository;
+    private final CategoryMapper categoryMapper;
 
-    @Autowired
-    public CategoryServiceImpl(CategoryRepository repository) {
-        this.repository = repository;
+    @Override
+    @Transactional(readOnly = true)
+    public List<CategoryDTO> findAll() {
+        log.debug("Get order list by category name");
+
+        return repository.findAllByOrderByNameAsc()
+                .stream().map(categoryMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Category> findAll() {
-        return repository.findAllByOrderByNameAsc();
+    @Transactional(readOnly = true)
+    public CategoryDTO findById(Long id) {
+        log.debug("Finding Category with id: {}", id);
+
+        Category result = repository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Category not found: {}", id);
+                    return new ResourceNotFoundException("Category NOT FOUND! id: " + id);
+                });
+
+        return categoryMapper.toDTO(result);
     }
 
     @Override
-    public Category findById(Long id) {
-        Category theCategory = null;
+    @Transactional(readOnly = true)
+    public List<CategoryDTO> findByNameContaining(String query) {
+        log.debug("Finding categories that contains {}", query);
 
-        Optional<Category> result = repository.findById(id);
+        if(null == query || query.isEmpty())
+            return List.of();
 
-        if(result.isPresent()){
-            theCategory = result.get();
-        }else{
-            throw new RuntimeException("Non se puido atopar a categoría para o id: " + id);
-        }
-
-        return theCategory;
+        return repository.findByNameContaining(query)
+                .stream()
+                .map(categoryMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Category> findByNameContaining(String query) {
-        return repository.findByNameContaining(query);
+    @Transactional
+    public CategoryDTO create(CategoryCreateDTO createDTO) {
+        log.debug("Creating new category {}", createDTO.getName());
+
+        Category category = categoryMapper.toEntity(createDTO);
+        Category savedCategory = repository.save(category);
+        log.info("Created new category with ID: {}", savedCategory.getId());
+
+        return categoryMapper.toDTO(savedCategory);
     }
 
     @Override
-    public Category save(Category category) {
-        return repository.save(category);
+    @Transactional
+    public CategoryDTO update(Long id, CategoryUpdateDTO updateDTO) {
+        log.debug("Updating categories with ID {}", id);
+
+        Category result = repository.findById(id)
+                .orElseThrow(()->{
+                    log.debug("Category Not found with ID: {}", id);
+                    return new ResourceNotFoundException("Category Not found with ID: " + id);
+                });
+
+        categoryMapper.updateEntity(updateDTO, result);
+        Category updatedCategory = repository.save(result);
+        log.info("Updated category with ID: {}", updatedCategory.getId());
+
+        return categoryMapper.toDTO(updatedCategory);
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
-        Category category = null;
-        Optional<Category> result = repository.findById(id);
-        if(result.isPresent()){
-            category = result.get();
-            Set<Recipe> recipes = category.getRecipes();
-            for(Recipe recipe: recipes){
-                recipe.getCategories().remove(category);
-            }
-            repository.deleteById(id);
+        log.debug("Deleting categories with ID {}", id);
+
+        Category result = repository.findById(id)
+                .orElseThrow(()->{
+                    log.error("Category not found with ID: {}", id);
+                    return new ResourceNotFoundException("Category not found with ID: " + id);
+                });
+
+        Set<Recipe> recipes = result.getRecipes();
+        for(Recipe recipe: recipes){
+            recipe.getCategories().remove(result);
         }
+        repository.deleteById(id);
     }
 }

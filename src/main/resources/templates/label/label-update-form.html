@@ -10,14 +10,16 @@
 
     <p class="h4 mb-4">Add new label</p>
 
-    <form action="#" th:action="@{/labels/save}" th:object="${theLabel}" method="POST">
+    <form action="#" th:action="@{/labels/update}" th:object="${theLabel}" method="POST">
+        <!-- add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}">
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Name</span>
             <input type="text" th:field="*{name}" class="form-control" placeholder="Label name" required>
         </div>
 
-        <button type="submit" class="btn btn-info col-1">Save</button>
+        <button type="submit" class="btn btn-info col-1">Update</button>
     </form>
 
     <hr>
