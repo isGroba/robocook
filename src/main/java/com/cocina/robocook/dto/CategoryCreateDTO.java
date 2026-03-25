@@ -1,6 +1,5 @@
 package com.cocina.robocook.dto;
 
-import com.cocina.robocook.entity.Recipe;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -9,13 +8,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "DTO to create category")
+@Schema(description = "Create category")
 public class CategoryCreateDTO {
 
     @NotBlank(message = "The name is mandatory")
@@ -23,6 +22,4 @@ public class CategoryCreateDTO {
     @Schema(description = "Category name", example = "Dinner")
     private String name;
 
-    @Schema(description = "The recipes with this category")
-    private Set<Recipe> recipes;
 }

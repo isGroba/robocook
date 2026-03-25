@@ -1,16 +1,13 @@
 package com.cocina.robocook.dto;
 
-import com.cocina.robocook.entity.Recipe;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -29,5 +26,5 @@ public class LabelDTO {
 
     @JsonProperty("recipes")
     @Schema(description = "List of recipes with this label")
-    private Set<Recipe> recipes;
+    private List<RecipeSimpleDTO> recipes;
 }
