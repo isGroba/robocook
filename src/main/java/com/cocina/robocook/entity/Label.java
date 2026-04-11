@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,7 +30,7 @@ public class Label {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
             mappedBy = "labels")
-    private Set<Recipe> recipes;
+    private List<Recipe> recipes;
 
     // constructor
     public Label(String name) {
@@ -40,7 +40,7 @@ public class Label {
     //add convenience methods
     public void addRecipe(Recipe tempRecipe){
         if(recipes == null){
-            recipes = new HashSet<>();
+            recipes = new ArrayList<>();
         }
         recipes.add(tempRecipe);
         tempRecipe.addLabel(this);

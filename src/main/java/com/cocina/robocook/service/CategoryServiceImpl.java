@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -105,7 +104,7 @@ public class CategoryServiceImpl implements CategoryService{
                     return new ResourceNotFoundException("Category not found with ID: " + id);
                 });
 
-        Set<Recipe> recipes = result.getRecipes();
+        List<Recipe> recipes = result.getRecipes();
         for(Recipe recipe: recipes){
             recipe.getCategories().remove(result);
         }

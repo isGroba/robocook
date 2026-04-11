@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,8 +43,8 @@ public class LabelServiceImpl implements LabelService{
 
         Label result = repository.findById(id)
                 .orElseThrow(()->{
-                    log.error("");
-                    return new ResourceNotFoundException("");
+                    log.error("Label Not found with ID: {}", id);
+                    return new ResourceNotFoundException("Label Not found with ID: " + id);
                 });
 
         return labelMapper.toDTO(result);
@@ -102,7 +101,7 @@ public class LabelServiceImpl implements LabelService{
                     return new ResourceNotFoundException("Label not found with ID: " + id);
                 });
 
-        Set<Recipe> recipes = result.getRecipes();
+        List<Recipe> recipes = result.getRecipes();
         for(Recipe recipe: recipes){
             recipe.getLabels().remove(result);
         }
