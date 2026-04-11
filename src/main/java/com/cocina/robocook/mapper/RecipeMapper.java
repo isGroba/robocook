@@ -61,6 +61,44 @@ public class RecipeMapper {
         return recipe;
     }
 
+    public Recipe toEntity(RecipeDTO recipeDTO){
+
+        if (null == recipeDTO)
+            return null;
+
+        Recipe recipe = new Recipe();
+        recipe.setName(recipeDTO.getName());
+        recipe.setDescription(recipeDTO.getDescription());
+        recipe.setPreparationTime(recipeDTO.getPreparationTime());
+        recipe.setDifficulty(recipeDTO.getDifficulty());
+        recipe.setSeason(recipeDTO.getSeason());
+        recipe.setHealthyScore(recipeDTO.getHealthyScore());
+        recipe.setTasteScore(recipeDTO.getTasteScore());
+        recipe.setPortions(recipeDTO.getPortions());
+        recipe.setCalories(recipeDTO.getCalories());
+
+        return recipe;
+    }
+
+    public RecipeUpdateDTO toUpdateDTO(RecipeDTO recipeDTO){
+
+        if (null == recipeDTO)
+            return null;
+
+        RecipeUpdateDTO recipe = new RecipeUpdateDTO();
+        recipe.setName(recipeDTO.getName());
+        recipe.setDescription(recipeDTO.getDescription());
+        recipe.setPreparationTime(recipeDTO.getPreparationTime());
+        recipe.setDifficulty(recipeDTO.getDifficulty());
+        recipe.setSeason(recipeDTO.getSeason());
+        recipe.setHealthyScore(recipeDTO.getHealthyScore());
+        recipe.setTasteScore(recipeDTO.getTasteScore());
+        recipe.setPortions(recipeDTO.getPortions());
+        recipe.setCalories(recipeDTO.getCalories());
+
+        return recipe;
+    }
+
     public void updateEntity(RecipeUpdateDTO updateDTO, Recipe recipe){
 
         if (null == updateDTO)

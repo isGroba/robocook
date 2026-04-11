@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findAllByOrderByNameAsc();
+
+    List<Recipe> findByNameContainingIgnoreCase(String query);
 }

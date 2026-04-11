@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class RecipeIngredientMapper {
 
     private final IngredientMapper ingredientMapper;
-    private final RecipeMapper recipeMapper;
 
     public RecipeIngredientDTO toDTO(RecipeIngredient recipeIngredient){
 

@@ -1,9 +1,14 @@
 package com.cocina.robocook.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Objects;
 
+@Getter
+@Setter
+@ToString(exclude = {"recipe", "ingredient"})
+@NoArgsConstructor
 @Entity
 @Table(name = "recipe_ingredient")
 public class RecipeIngredient {
@@ -30,9 +35,6 @@ public class RecipeIngredient {
     @Column(name = "optative")
     private boolean optional;
 
-    public RecipeIngredient() {
-    }
-
     public RecipeIngredient(Recipe recipe, Ingredient ingredient, Double amount, String unit, boolean optional) {
         this.recipe = recipe;
         this.ingredient = ingredient;
@@ -41,53 +43,6 @@ public class RecipeIngredient {
         this.optional = optional;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public boolean isOptional() {
-        return optional;
-    }
-
-    public void setOptional(boolean optional) {
-        this.optional = optional;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -98,15 +53,5 @@ public class RecipeIngredient {
     @Override
     public int hashCode() {
         return Objects.hash(id, recipe, ingredient);
-    }
-
-    @Override
-    public String toString() {
-        return "RecipeIngredient{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", unit='" + unit + '\'' +
-                ", optional=" + optional +
-                '}';
     }
 }
