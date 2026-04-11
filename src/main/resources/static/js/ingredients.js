@@ -16,7 +16,7 @@ function  handleIngredientSearch(e){
     }
 
     // Llamada al endpoint de búsqueda
-    fetch(`/ingredients/search?query=` + term )
+    fetch(`/backoffice/ingredients/search?query=` + term )
         .then(response => response.json())
         .then(data => {
             let html = '';

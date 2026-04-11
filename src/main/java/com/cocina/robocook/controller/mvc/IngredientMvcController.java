@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ingredients")
+@RequestMapping("/backoffice/ingredients")
 @RequiredArgsConstructor
 @Slf4j
 public class IngredientMvcController {
@@ -57,7 +57,7 @@ public class IngredientMvcController {
         log.info("POST /ingredients/save - Save ingredient: {}", createDTO.getName());
 
         ingredientService.create(createDTO);
-        return "redirect:/ingredients/list";
+        return "redirect:/backoffice/ingredients/list";
     }
 
     @PostMapping("/update")
@@ -66,7 +66,7 @@ public class IngredientMvcController {
         log.info("POST /ingredients/update - Update ingredient: {}", updateDTO.getName());
 
         ingredientService.update((long)theId, updateDTO);
-        return "redirect:/ingredients/list";
+        return "redirect:/backoffice/ingredients/list";
     }
 
     @GetMapping("/delete")
@@ -74,7 +74,7 @@ public class IngredientMvcController {
         log.info("GET /ingredients/delete - Delete ingredient: {}", theId);
 
         ingredientService.deleteById((long)theId);
-        return "redirect:/ingredients/list";
+        return "redirect:/backoffice/ingredients/list";
     }
 
     @GetMapping("/search")

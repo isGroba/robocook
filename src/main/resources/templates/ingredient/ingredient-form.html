@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add new ingredient</p>
 
-    <form action="#" th:action="@{/ingredients/save}" th:object="${theIngredient}" method="POST">
+    <form action="#" th:action="@{/backoffice/ingredients/save}" th:object="${theIngredient}" method="POST">
 
         <!-- add hidden form field to handle the update -->
         <!-- <input type="hidden" th:field="*{id}"> -->
@@ -32,7 +32,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/ingredients/list}">Go to list ingredients</a>
+    <a th:href="@{/backoffice/ingredients/list}">Go to list ingredients</a>
 </div>
 </body>
 </html>

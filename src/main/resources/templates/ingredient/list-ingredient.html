@@ -9,7 +9,7 @@
 <div th:fragment="content" class="container">
 
     <!-- add button -->
-    <a th:href="@{/ingredients/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New ingredient</a>
+    <a th:href="@{/backoffice/ingredients/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New ingredient</a>
     <br></br>
 
     <table class="table table-bordered table-striped">
@@ -31,12 +31,12 @@
             <td th:text="${tempIngredient.alternative}"/>
             <td class="col-2 text-center">
                 <!-- add update button link -->
-                <a th:href="@{/ingredients/showFormForUpdate(ingredientId=${tempIngredient.id})}"
+                <a th:href="@{/backoffice/ingredients/showFormForUpdate(ingredientId=${tempIngredient.id})}"
                    class="btn btn-info btn-sm">
                     Update
                 </a>
                 <!-- add delete button link -->
-                <a th:href="@{/ingredients/delete(ingredientId=${tempIngredient.id})}"
+                <a th:href="@{/backoffice/ingredients/delete(ingredientId=${tempIngredient.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if(!(confirm('Do you want to delete this ingredient?')))return false">
                     Delete

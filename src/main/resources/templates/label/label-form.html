@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add new label</p>
 
-    <form action="#" th:action="@{/labels/save}" th:object="${theLabel}" method="POST">
+    <form action="#" th:action="@{/backoffice/labels/save}" th:object="${theLabel}" method="POST">
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Name</span>
@@ -21,7 +21,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/labels/list}">Go to list labels</a>
+    <a th:href="@{/backoffice/labels/list}">Go to list labels</a>
 </div>
 </body>
 </html>

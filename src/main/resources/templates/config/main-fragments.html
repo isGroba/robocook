@@ -23,7 +23,7 @@
             </ol>
             <ol th:if="${list != null and add != null}" class="breadcrumb">
                 <li class="breadcrumb-item"><a class="badge rounded-pill text-bg-dark simple-a" th:href="@{/backoffice/list}">Main</a></li>
-                <li class="breadcrumb-item"><a class="badge rounded-pill text-bg-secondary simple-a" th:href="@{/{path}/list(path=${list})}"  th:text="${list}" /></li>
+                <li class="breadcrumb-item"><a class="badge rounded-pill text-bg-secondary simple-a" th:href="@{/backoffice/{path}/list(path=${list})}"  th:text="${list}" /></li>
                 <li class="breadcrumb-item active" aria-current="page"><a class="badge rounded-pill text-bg-light simple-a" th:text="${add}" /></li>
             </ol>
         </nav>
@@ -44,8 +44,8 @@
             <h4>Links</h4>
             <ul>
                 <li><a th:href="@{/}">Inicio</a></li>
-                <li><a th:href="@{/recipes/list}">Recipes</a></li>
-                <li><a th:href="@{/ingredients/list}">Ingredients</a></li>
+                <li><a th:href="@{/backoffice/recipes/list}">Recipes</a></li>
+                <li><a th:href="@{/backoffice/ingredients/list}">Ingredients</a></li>
                 <li><a th:href="@{/}">official website</a></li>
             </ul>
         </div>

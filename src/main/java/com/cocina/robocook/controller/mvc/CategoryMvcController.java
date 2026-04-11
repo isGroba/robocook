@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/backoffice/categories")
 @RequiredArgsConstructor
 @Slf4j
 public class CategoryMvcController {
@@ -53,7 +53,7 @@ public class CategoryMvcController {
         log.info("POST /categories/save - Save category: {}", createDTO.getName());
 
         categoryService.create(createDTO);
-        return "redirect:/categories/list";
+        return "redirect:/backoffice/categories/list";
     }
 
     @PostMapping("/update")
@@ -62,7 +62,7 @@ public class CategoryMvcController {
         log.info("POST /categories/update - Update category: {}", updateDTO.getName());
 
         categoryService.update((long)theId, updateDTO);
-        return "redirect:/categories/list";
+        return "redirect:/backoffice/categories/list";
     }
 
     @GetMapping("/delete")
@@ -70,7 +70,7 @@ public class CategoryMvcController {
         log.info("GET /categories/delete - Delete category: {}", theId);
 
         categoryService.deleteById((long)theId);
-        return "redirect:/categories/list";
+        return "redirect:/backoffice/categories/list";
     }
 
     @GetMapping("/search")

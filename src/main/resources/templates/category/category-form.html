@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add new category</p>
     <hr>
-    <form action="#" th:action="@{/categories/save}" th:object="${theCategory}" method="POST">
+    <form action="#" th:action="@{/backoffice/categories/save}" th:object="${theCategory}" method="POST">
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Name</span>
@@ -21,7 +21,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/categories/list}">Go to list categories</a>
+    <a th:href="@{/backoffice/categories/list}">Go to list categories</a>
 </div>
 </body>
 </html>

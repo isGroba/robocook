@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add recipe</p>
 
-    <form action="#" th:action="@{/recipes/save}" th:object="${theRecipe}" method="POST">
+    <form action="#" th:action="@{/backoffice/recipes/save}" th:object="${theRecipe}" method="POST">
         <!-- add hidden form field to handle the update -->
         <input type="hidden" th:field="*{id}">
         <div class="row">
@@ -179,7 +179,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/recipes/list}">Go to list recipes</a>
+    <a th:href="@{/backoffice/recipes/list}">Go to list recipes</a>
 
     <script th:inline="javascript">
         let stepIndex = [[${#lists.size(theRecipe.steps)}]];

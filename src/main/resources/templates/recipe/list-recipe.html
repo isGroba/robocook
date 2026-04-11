@@ -9,7 +9,7 @@
 <div th:fragment="content" class="container">
 
     <!-- add button -->
-    <a th:href="@{/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New recipe</a>
+    <a th:href="@{/backoffice/recipes/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New recipe</a>
     <br></br>
 
     <table class="table table-bordered table-striped">
@@ -27,12 +27,12 @@
             <td th:text="${tempRecipe.name}"/>
             <td class="col-2 text-center">
                 <!-- add update button link -->
-                <a th:href="@{/recipes/showFormForUpdate(recipeId=${tempRecipe.id})}"
+                <a th:href="@{/backoffice/recipes/showFormForUpdate(recipeId=${tempRecipe.id})}"
                    class="btn btn-info btn-sm">
                     Update
                 </a>
                 <!-- add delete button link -->
-                <a th:href="@{/recipes/delete(recipeId=${tempRecipe.id})}"
+                <a th:href="@{/backoffice/recipes/delete(recipeId=${tempRecipe.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if(!(confirm('Do you want delete this recipe?')))return false">
                     Delete

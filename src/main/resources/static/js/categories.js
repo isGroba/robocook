@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const response = await fetch(`/categories/search?query=${query}`);
+            const response = await fetch(`/backoffice/categories/search?query=${query}`);
 
             const categories = await response.json();
 

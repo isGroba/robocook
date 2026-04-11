@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add new label</p>
 
-    <form action="#" th:action="@{/labels/update}" th:object="${theLabel}" method="POST">
+    <form action="#" th:action="@{/backoffice/labels/update}" th:object="${theLabel}" method="POST">
         <!-- add hidden form field to handle the update -->
         <input type="hidden" th:field="*{id}">
 
@@ -23,7 +23,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/labels/list}">Go to list labels</a>
+    <a th:href="@{/backoffice/labels/list}">Go to list labels</a>
 </div>
 </body>
 </html>

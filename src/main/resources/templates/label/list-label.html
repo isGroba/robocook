@@ -9,7 +9,7 @@
 <div th:fragment="content" class="container">
 
     <!-- add button -->
-    <a th:href="@{/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New label</a>
+    <a th:href="@{/backoffice/labels/showFormForAdd}" class="btn btn-outline-secondary btn-sm_mb-3">New label</a>
     <br></br>
 
     <table class="table table-bordered table-striped">
@@ -27,12 +27,12 @@
             <td th:text="${tempLabel.name}"/>
             <td class="col-2 text-center">
                 <!-- add update button link -->
-                <a th:href="@{/labels/showFormForUpdate(labelId=${tempLabel.id})}"
+                <a th:href="@{/backoffice/labels/showFormForUpdate(labelId=${tempLabel.id})}"
                    class="btn btn-info btn-sm">
                     Update
                 </a>
                 <!-- add delete button link -->
-                <a th:href="@{/labels/delete(labelId=${tempLabel.id})}"
+                <a th:href="@{/backoffice/labels/delete(labelId=${tempLabel.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if(!(confirm('Do you want delete this label?')))return false">
                     Delete

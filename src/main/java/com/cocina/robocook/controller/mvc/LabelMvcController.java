@@ -1,6 +1,5 @@
 package com.cocina.robocook.controller.mvc;
 
-import com.cocina.robocook.dto.CategoryUpdateDTO;
 import com.cocina.robocook.dto.LabelCreateDTO;
 import com.cocina.robocook.dto.LabelDTO;
 import com.cocina.robocook.dto.LabelUpdateDTO;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/labels")
+@RequestMapping("/backoffice/labels")
 @RequiredArgsConstructor
 @Slf4j
 public class LabelMvcController {
@@ -55,7 +54,7 @@ public class LabelMvcController {
         log.info("POST /labels/save - Save label: {}", createDTO.getName());
 
         labelService.create(createDTO);
-        return "redirect:/labels/list";
+        return "redirect:/backoffice/labels/list";
     }
 
     @PostMapping("/update")
@@ -64,7 +63,7 @@ public class LabelMvcController {
         log.info("POST /labels/update - Update label: {}", updateDTO.getName());
 
         labelService.update((long)theId, updateDTO);
-        return "redirect:/labels/list";
+        return "redirect:/backoffice/labels/list";
     }
 
     @GetMapping("/delete")
@@ -72,7 +71,7 @@ public class LabelMvcController {
         log.info("GET /labels/delete - Delete label: {}", theId);
 
         labelService.deleteById((long)theId);
-        return "redirect:/labels/list";
+        return "redirect:/backoffice/labels/list";
     }
 
     @GetMapping("/search")

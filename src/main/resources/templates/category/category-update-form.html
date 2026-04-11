@@ -10,7 +10,7 @@
 
     <p class="h4 mb-4">Add new category</p>
     <hr>
-    <form action="#" th:action="@{/categories/update}" th:object="${theCategory}" method="POST">
+    <form action="#" th:action="@{/backoffice/categories/update}" th:object="${theCategory}" method="POST">
 
         <!-- add hidden form field to handle the update -->
         <input type="hidden" th:field="*{id}">
@@ -24,7 +24,7 @@
     </form>
 
     <hr>
-    <a th:href="@{/categories/list}">Go to list categories</a>
+    <a th:href="@{/backoffice/categories/list}">Go to list categories</a>
 </div>
 </body>
 </html>
