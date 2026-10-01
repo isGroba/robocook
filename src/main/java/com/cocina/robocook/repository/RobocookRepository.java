@@ -14,19 +14,13 @@ public interface RobocookRepository {
 
     void updateRecipe(Recipe tempReceita);
 
-    void deleteRecipeById(Long id);
-
     Ingredient findIngredientById(Long id);
 
     // CATEGORY
     Category findCategoryAndRecipesById(Long id);
 
-    void deleteCategoryById(Long id);
-
     // LABEL
     Label findLabelAndRecipesById(Long id);
-
-    void deleteLabelById(Long id);
 
     // methods for Step class
     Step findStepById(Long id);

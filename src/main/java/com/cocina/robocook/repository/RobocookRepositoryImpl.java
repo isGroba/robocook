@@ -6,8 +6,6 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
-
 @Repository
 public class RobocookRepositoryImpl implements RobocookRepository {
 
@@ -72,13 +70,6 @@ public class RobocookRepositoryImpl implements RobocookRepository {
     }
 
     @Override
-    @Transactional
-    public void deleteRecipeById(Long id) {
-        Recipe tempRecipe = entityManager.find(Recipe.class, id);
-        entityManager.remove(tempRecipe);
-    }
-
-    @Override
     public Ingredient findIngredientById(Long id) {
         return entityManager.find(Ingredient.class, id);
     }
@@ -93,38 +84,12 @@ public class RobocookRepositoryImpl implements RobocookRepository {
     }
 
     @Override
-    @Transactional
-    public void deleteCategoryById(Long id) {
-        Category category = entityManager.find(Category.class, id);
-        if(category != null){
-            Set<Recipe> recipes = category.getRecipes();
-            for(Recipe theRecipe: recipes){
-                theRecipe.getCategories().remove(category);
-            }
-            entityManager.remove(category);
-        }
-    }
-
-    @Override
     public Label findLabelAndRecipesById(Long id) {
         TypedQuery<Label> query = entityManager.createQuery("select distinct l from Label l " +
                                             "LEFT JOIN FETCH l.recipes where l.id= :dataId", Label.class);
         query.setParameter("dataId", id);
 
         return query.getSingleResult();
-    }
-
-    @Override
-    @Transactional
-    public void deleteLabelById(Long id) {
-        Label theLabel = entityManager.find(Label.class, id);
-        if(theLabel != null){
-            Set<Recipe> recipes = theLabel.getRecipes();
-            for(Recipe theRecipe: recipes){
-                theRecipe.getLabels().remove(theLabel);
-            }
-            entityManager.remove(theLabel);
-        }
     }
 
     @Override

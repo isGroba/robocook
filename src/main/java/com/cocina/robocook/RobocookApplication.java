@@ -53,10 +53,6 @@ public class RobocookApplication {
 		System.out.println(theLabel.getRecipes());
 	}
 
-	private void deleteLabel(RobocookRepository receitaRepository) {
-		receitaRepository.deleteLabelById((long)1);
-	}
-
 	private void findRecitaWithStepsAndIngredientsById(RobocookRepository receitaRepository) {
 		long id = 5;
 
@@ -104,13 +100,6 @@ public class RobocookApplication {
 
 		System.out.println("Processing and saving");
 		receitaRepository.saveRecipe(theRecipe);
-		System.out.println("Done!");
-	}
-
-	private void deleteRecetaById(RobocookRepository receitaRepository) {
-		long id = 5;
-
-		receitaRepository.deleteRecipeById(id);
 		System.out.println("Done!");
 	}
 
