@@ -4,6 +4,7 @@ import com.cocina.robocook.dto.*;
 import com.cocina.robocook.entity.*;
 import com.cocina.robocook.exception.ResourceNotFoundException;
 import com.cocina.robocook.mapper.RecipeMapper;
+import com.cocina.robocook.mapper.RecipeSimpleMapper;
 import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.repository.IngredientRepository;
 import com.cocina.robocook.repository.LabelRepository;
@@ -25,6 +26,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     private final RecipeRepository repository;
     private final RecipeMapper recipeMapper;
+    private final RecipeSimpleMapper recipeSimpleMapper;
 
     private final CategoryRepository categoryRepository;
     private final LabelRepository labelRepository;
@@ -37,6 +39,16 @@ public class RecipeServiceImpl implements RecipeService{
         return repository.findAllByOrderByNameAsc()
                 .stream()
                 .map(recipeMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RecipeSimpleDTO> findAllSimple() {
+        log.debug("Get order list by recipe name");
+
+        return repository.findAllByOrderByNameAsc()
+                .stream()
+                .map(recipeSimpleMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
