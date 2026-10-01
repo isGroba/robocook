@@ -12,7 +12,7 @@
 	<artifactId>robocook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>robocook</name>
-	<description>Gestion de cocina</description>
+	<description>kitchen management</description>
 	<url/>
 	<licenses>
 		<license/>

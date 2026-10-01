@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 @Slf4j
-@Tag(name = "Ingredients", description = "This section manage ingredients")
+@Tag(name = "Ingredients", description = "This section manage the ingredients")
 public class IngredientApiController {
 
     private final IngredientService ingredientService;
@@ -148,26 +148,26 @@ public class IngredientApiController {
     }
 
     @Operation(
-            summary = "Eliminar ingrediente",
-            description = "Elimina un ingrediente identificado por su ID"
+            summary = "Delete ingredient",
+            description = "Removed ingredient identified by ID"
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Ingrediente eliminado exitosamente"
+                    description = "Ingredient successfully removed"
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Ingrediente no encontrado"
+                    description = "Ingredient not found"
             )
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
-        log.info("DELETE /api/v1/ingredients/{} - Eliminando ingrediente", id);
+        log.info("DELETE /api/v1/ingredients/{} - Ingredient removed", id);
 
         ingredientService.deleteById(id);
 
-        // Devolver 204 (No Content) sin cuerpo
+        // Devolver 204 (No Content) without body
         return ResponseEntity.noContent().build();
     }
 
