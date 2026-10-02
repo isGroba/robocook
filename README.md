@@ -32,4 +32,7 @@ Aplicación Backend para la gestión de recetas de cocina.
 ## Instalación y puesta en marcha
 
 Ejecutar aplicación en entornos
-mvn spring-boot:run -Dspring-boot.run.arguments="--spring.profiles.active=dev"
+mvn spring-boot:run '-Dspring-boot.run.arguments=--spring.profiles.active=dev'
+
+Para limpiar la caché y cargar el proyecto
+mvn clean compile spring-boot:run '-Dspring-boot.run.arguments=--spring.profiles.active=dev'
