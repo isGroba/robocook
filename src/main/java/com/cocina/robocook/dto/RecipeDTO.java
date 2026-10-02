@@ -50,10 +50,10 @@ public class RecipeDTO {
     private Date saveDate;
 
     @Schema(description = "Categories assigned to this recipe", example = "1")
-    private List<CategoryDTO> categories = new ArrayList<>();
+    private List<CategorySimpleDTO> categories = new ArrayList<>();
 
     @Schema(description = "Labels assigned to this recipe", example = "1")
-    private List<LabelDTO> labels = new ArrayList<>();
+    private List<LabelSimpleDTO> labels = new ArrayList<>();
 
     @Schema(description = "Steps to take", example = "1")
     private List<StepDTO> steps = new ArrayList<>();

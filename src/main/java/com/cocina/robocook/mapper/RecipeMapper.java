@@ -34,8 +34,8 @@ public class RecipeMapper {
                 .tasteScore(recipe.getTasteScore())
                 .portions(recipe.getPortions())
                 .calories(recipe.getCalories())
-                .categories(null != recipe.getCategories() ? recipe.getCategories().stream().map(categoryMapper::toDTO).collect(Collectors.toList()):null)
-                .labels(null != recipe.getLabels() ? recipe.getLabels().stream().map(labelMapper::toDTO).collect(Collectors.toList()):null)
+                .categories(null != recipe.getCategories() ? recipe.getCategories().stream().map(categoryMapper::toSimpleDTO).collect(Collectors.toList()):null)
+                .labels(null != recipe.getLabels() ? recipe.getLabels().stream().map(labelMapper::toSimpleDTO).collect(Collectors.toList()):null)
                 .steps(null != recipe.getSteps() ? recipe.getSteps().stream().map(stepMapper::toDTO).collect(Collectors.toList()):null)
                 .recipeIngredients(null != recipe.getRecipeIngredients() ? recipe.getRecipeIngredients().stream().map(ingredientMapper::toDTO).collect(Collectors.toList()):null)
                 .build();

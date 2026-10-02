@@ -2,6 +2,7 @@ package com.cocina.robocook.mapper;
 
 import com.cocina.robocook.dto.CategoryCreateDTO;
 import com.cocina.robocook.dto.CategoryDTO;
+import com.cocina.robocook.dto.CategorySimpleDTO;
 import com.cocina.robocook.dto.CategoryUpdateDTO;
 import com.cocina.robocook.entity.Category;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,16 @@ public class CategoryMapper {
                                     .map(recipeSimpleMapper::toDTO)
                                     .collect(Collectors.toList())
                             : null)
+                .build();
+    }
+
+    public CategorySimpleDTO toSimpleDTO(Category category){
+        if(null == category)
+            return null;
+
+        return CategorySimpleDTO.builder()
+                .id(category.getId())
+                .name(category.getName())
                 .build();
     }
 

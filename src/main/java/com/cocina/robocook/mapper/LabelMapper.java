@@ -2,6 +2,7 @@ package com.cocina.robocook.mapper;
 
 import com.cocina.robocook.dto.LabelCreateDTO;
 import com.cocina.robocook.dto.LabelDTO;
+import com.cocina.robocook.dto.LabelSimpleDTO;
 import com.cocina.robocook.dto.LabelUpdateDTO;
 import com.cocina.robocook.entity.Label;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,16 @@ public class LabelMapper {
                                 .map(recipeSimpleMapper::toDTO)
                                 .collect(Collectors.toList())
                         : null)
+                .build();
+    }
+
+    public LabelSimpleDTO toSimpleDTO(Label label){
+        if(null == label)
+            return null;
+
+        return LabelSimpleDTO.builder()
+                .id(label.getId())
+                .name(label.getName())
                 .build();
     }
 
