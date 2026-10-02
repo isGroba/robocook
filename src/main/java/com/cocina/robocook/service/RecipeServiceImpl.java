@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,16 +39,6 @@ public class RecipeServiceImpl implements RecipeService{
         return repository.findAllByOrderByNameAsc()
                 .stream()
                 .map(recipeMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RecipeSimpleDTO> findAllSimple() {
-        log.debug("Get order list by recipe name");
-
-        return repository.findAllByOrderByNameAsc()
-                .stream()
-                .map(recipeSimpleMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -118,11 +108,11 @@ public class RecipeServiceImpl implements RecipeService{
             if(null != recipeDTO.getCategories() && !recipeDTO.getCategories().isEmpty()){
                 log.debug("Adding {} labels", recipeDTO.getCategories().size());
 
-                for(CategoryDTO categoryDTO : recipeDTO.getCategories()){
-                    Category category = categoryRepository.findById(categoryDTO.getId())
+                for(CategorySimpleDTO categorySimpleDTO : recipeDTO.getCategories()){
+                    Category category = categoryRepository.findById(categorySimpleDTO.getId())
                             .orElseThrow(() -> {
-                                log.error("Category not found with ID: {}", categoryDTO.getId());
-                                return new ResourceNotFoundException("Category not found with ID: " + categoryDTO.getId());
+                                log.error("Category not found with ID: {}", categorySimpleDTO.getId());
+                                return new ResourceNotFoundException("Category not found with ID: " + categorySimpleDTO.getId());
                             });
                     recipe.addCategory(category);
                 }
@@ -132,11 +122,11 @@ public class RecipeServiceImpl implements RecipeService{
             if (null != recipeDTO.getLabels() && !recipeDTO.getLabels().isEmpty()) {
                 log.debug("Adding {} labels", recipeDTO.getLabels().size());
 
-                for (LabelDTO labelDTO : recipeDTO.getLabels()) {
-                    Label label = labelRepository.findById(labelDTO.getId())
+                for (LabelSimpleDTO labelSimpleDTO : recipeDTO.getLabels()) {
+                    Label label = labelRepository.findById(labelSimpleDTO.getId())
                             .orElseThrow(() -> {
-                                log.error("Label not found with ID: {}", labelDTO.getId());
-                                return new ResourceNotFoundException("Label not found with ID: " + labelDTO.getId());
+                                log.error("Label not found with ID: {}", labelSimpleDTO.getId());
+                                return new ResourceNotFoundException("Label not found with ID: " + labelSimpleDTO.getId());
                             });
                     recipe.addLabel(label);
                 }
@@ -215,11 +205,11 @@ public class RecipeServiceImpl implements RecipeService{
                 if (!recipe.getLabels().isEmpty())
                     recipe.getLabels().clear();
 
-                for (LabelDTO labelDTO : recipeDTO.getLabels()) {
-                    Label label = labelRepository.findById(labelDTO.getId())
+                for (LabelSimpleDTO labelSimpleDTO : recipeDTO.getLabels()) {
+                    Label label = labelRepository.findById(labelSimpleDTO.getId())
                             .orElseThrow(() -> {
-                                log.error("Label not found with ID: {}", labelDTO.getId());
-                                return new ResourceNotFoundException("Label not found with ID: " + labelDTO.getId());
+                                log.error("Label not found with ID: {}", labelSimpleDTO.getId());
+                                return new ResourceNotFoundException("Label not found with ID: " + labelSimpleDTO.getId());
                             });
                     recipe.addLabel(label);
                 }
@@ -232,11 +222,11 @@ public class RecipeServiceImpl implements RecipeService{
                 if (!recipe.getCategories().isEmpty())
                     recipe.getCategories().clear();
 
-                for (CategoryDTO categoryDTO : recipeDTO.getCategories()) {
-                    Category category = categoryRepository.findById(categoryDTO.getId())
+                for (CategorySimpleDTO categorySimpleDTO : recipeDTO.getCategories()) {
+                    Category category = categoryRepository.findById(categorySimpleDTO.getId())
                             .orElseThrow(() -> {
-                                log.error("Category not found with ID: {}", categoryDTO.getId());
-                                return new ResourceNotFoundException("Category not found with ID: " + categoryDTO.getId());
+                                log.error("Category not found with ID: {}", categorySimpleDTO.getId());
+                                return new ResourceNotFoundException("Category not found with ID: " + categorySimpleDTO.getId());
                             });
                     recipe.addCategory(category);
                 }
