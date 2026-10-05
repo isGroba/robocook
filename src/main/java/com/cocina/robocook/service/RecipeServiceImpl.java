@@ -4,7 +4,6 @@ import com.cocina.robocook.dto.*;
 import com.cocina.robocook.entity.*;
 import com.cocina.robocook.exception.ResourceNotFoundException;
 import com.cocina.robocook.mapper.RecipeMapper;
-import com.cocina.robocook.mapper.RecipeSimpleMapper;
 import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.repository.IngredientRepository;
 import com.cocina.robocook.repository.LabelRepository;
@@ -26,7 +25,6 @@ public class RecipeServiceImpl implements RecipeService{
 
     private final RecipeRepository repository;
     private final RecipeMapper recipeMapper;
-    private final RecipeSimpleMapper recipeSimpleMapper;
 
     private final CategoryRepository categoryRepository;
     private final LabelRepository labelRepository;
@@ -53,6 +51,49 @@ public class RecipeServiceImpl implements RecipeService{
                 });
         return recipeMapper.toDTO(recipe);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<RecipeDTO> findByFilters(RecipeFilterDTO filterDTO) {
+        String name = filterDTO.getName();
+        Season season = filterDTO.getSeason() !=null ? filterDTO.getSeason() : null;
+        Difficulty difficulty = filterDTO.getDifficulty() != null ? filterDTO.getDifficulty() : null;
+        List<Long> labels = filterDTO.getLabelIds() != null && !filterDTO.getLabelIds().isEmpty()? filterDTO.getLabelIds() : null;
+        List<Long> categories = filterDTO.getCategoryIds()!= null && !filterDTO.getCategoryIds().isEmpty()? filterDTO.getCategoryIds() : null;
+        Integer minHealthScore = filterDTO.getMinHealthyScore();
+        Integer maxHealthScore = filterDTO.getMaxHealthyScore();
+        Integer minTasteScore = filterDTO.getMinTasteScore();
+        Integer maxTasteScore = filterDTO.getMaxTasteScore();
+        Integer preparationTime = filterDTO.getPreparationTime() != null ? filterDTO.getPreparationTime() : null;
+
+        return repository.findByFilters(
+                        name,
+                        difficulty,
+                        season,
+                        categories,
+                        labels,
+                        minHealthScore,
+                        maxHealthScore,
+                        minTasteScore,
+                        maxTasteScore,
+                        preparationTime)
+                .stream()
+                .map(recipeMapper::toDTO)
+                .collect(Collectors.toList());
+
+        /*
+        // Aplicar ordenamiento si se especifica y crear el método que se invoca sortRecipes
+        if (filterDTO.getSortBy() != null && !filterDTO.getSortBy().isEmpty()) {
+            recipes = sortRecipes(recipes, filterDTO.getSortBy(), filterDTO.getSortDirection());
+        }
+
+        log.info("Found {} recipes matching filters", recipes.size());
+        return recipes.stream()
+                .map(recipeMapper::toDTO)
+                .collect(Collectors.toList());
+         */
+    }
+
 
     @Override
     @Transactional(readOnly = true)
