@@ -5,7 +5,6 @@ import com.cocina.robocook.entity.Season;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class RecipeFilterDTO {
     @Schema(description = "Labels assigned to this recipe", example = "1")
     private List<Long> labelIds = new ArrayList<>();
 
-    @Schema(description = "Sort by field (name, difficulty, season, healthyScore, tasteScore, preparationTime, categories and labels)", example = "name")
+    @Schema(description = "Sort by field (name, difficulty, season, healthyScore, tasteScore and preparationTime)", example = "name")
     private String sortBy;
 
     @Schema(description = "Sort direction (asc, desc)", example = "asc")
