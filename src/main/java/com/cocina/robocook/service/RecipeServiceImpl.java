@@ -8,11 +8,11 @@ import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.repository.IngredientRepository;
 import com.cocina.robocook.repository.LabelRepository;
 import com.cocina.robocook.repository.RecipeRepository;
+import com.cocina.robocook.utils.RecipeSorter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,43 +55,30 @@ public class RecipeServiceImpl implements RecipeService{
     @Override
     @Transactional(readOnly = true)
     public List<RecipeDTO> findByFilters(RecipeFilterDTO filterDTO) {
-        String name = filterDTO.getName();
         Season season = filterDTO.getSeason() !=null ? filterDTO.getSeason() : null;
         Difficulty difficulty = filterDTO.getDifficulty() != null ? filterDTO.getDifficulty() : null;
         List<Long> labels = filterDTO.getLabelIds() != null && !filterDTO.getLabelIds().isEmpty()? filterDTO.getLabelIds() : null;
         List<Long> categories = filterDTO.getCategoryIds()!= null && !filterDTO.getCategoryIds().isEmpty()? filterDTO.getCategoryIds() : null;
-        Integer minHealthScore = filterDTO.getMinHealthyScore();
-        Integer maxHealthScore = filterDTO.getMaxHealthyScore();
-        Integer minTasteScore = filterDTO.getMinTasteScore();
-        Integer maxTasteScore = filterDTO.getMaxTasteScore();
         Integer preparationTime = filterDTO.getPreparationTime() != null ? filterDTO.getPreparationTime() : null;
 
-        return repository.findByFilters(
-                        name,
-                        difficulty,
-                        season,
-                        categories,
-                        labels,
-                        minHealthScore,
-                        maxHealthScore,
-                        minTasteScore,
-                        maxTasteScore,
-                        preparationTime)
-                .stream()
+        List<Recipe> result = repository.findByFilters(
+                filterDTO.getName(),
+                difficulty,
+                season,
+                categories,
+                labels,
+                filterDTO.getMinHealthyScore(),
+                filterDTO.getMaxHealthyScore(),
+                filterDTO.getMinTasteScore(),
+                filterDTO.getMaxTasteScore(),
+                preparationTime);
+
+        result = RecipeSorter.sortRecipes(result, filterDTO.getSortBy(), filterDTO.getSortDirection());
+
+        log.info("Found {} recipes matching filters", result.size());
+        return result.stream()
                 .map(recipeMapper::toDTO)
                 .collect(Collectors.toList());
-
-        /*
-        // Aplicar ordenamiento si se especifica y crear el método que se invoca sortRecipes
-        if (filterDTO.getSortBy() != null && !filterDTO.getSortBy().isEmpty()) {
-            recipes = sortRecipes(recipes, filterDTO.getSortBy(), filterDTO.getSortDirection());
-        }
-
-        log.info("Found {} recipes matching filters", recipes.size());
-        return recipes.stream()
-                .map(recipeMapper::toDTO)
-                .collect(Collectors.toList());
-         */
     }
 
 
@@ -337,4 +324,5 @@ public class RecipeServiceImpl implements RecipeService{
 
         repository.deleteById(id);
     }
+
 }
