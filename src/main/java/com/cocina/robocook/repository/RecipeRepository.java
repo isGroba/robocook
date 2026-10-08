@@ -3,6 +3,11 @@ package com.cocina.robocook.repository;
 import com.cocina.robocook.entity.Difficulty;
 import com.cocina.robocook.entity.Recipe;
 import com.cocina.robocook.entity.Season;
+import jakarta.validation.OverridesAttribute;
+import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NullMarked;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +15,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+
+    Page<Recipe> findAll(Pageable pageable);
 
     List<Recipe> findAllByOrderByNameAsc();
 

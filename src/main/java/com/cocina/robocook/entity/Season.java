@@ -1,9 +1,9 @@
 package com.cocina.robocook.entity;
 
 public enum Season {
-    PRIMAVEIRA,
-    VERAN,
-    OUTONO,
+    CALQUERA,
     INVERNO,
-    CALQUERA
+    OUTONO,
+    PRIMAVEIRA,
+    VERAN
 }

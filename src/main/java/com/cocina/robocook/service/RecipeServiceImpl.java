@@ -8,9 +8,14 @@ import com.cocina.robocook.repository.CategoryRepository;
 import com.cocina.robocook.repository.IngredientRepository;
 import com.cocina.robocook.repository.LabelRepository;
 import com.cocina.robocook.repository.RecipeRepository;
+import com.cocina.robocook.utils.HelperPagination;
 import com.cocina.robocook.utils.RecipeSorter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +37,37 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Override
     public List<RecipeDTO> findAll() {
-        log.debug("Get order list by recipe name");
+        log.debug("Get order list ");
 
         return repository.findAllByOrderByNameAsc()
                 .stream()
                 .map(recipeMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageResponseDTO<RecipeDTO> findAllPagination(int page, int size, String sortBy, String sortDirection) {
+        log.debug("Get order list by pagination");
+
+        page = Math.max(0, page);
+        size = HelperPagination.validatePageSize(size);
+        sortBy = HelperPagination.normalizeSortBy(sortBy);
+
+        Sort.Direction direction = "desc".equalsIgnoreCase(sortDirection) ? Sort.Direction.DESC: Sort.Direction.ASC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Recipe> recipePage = repository.findAll(pageable);
+        List<RecipeDTO> recipesDTO = recipePage.getContent()
+                .stream()
+                .map(recipeMapper::toDTO)
+                .toList();
+
+        return PageResponseDTO.from(new org.springframework.data.domain.PageImpl<>(
+                recipesDTO,
+                pageable,
+                recipePage.getTotalElements()
+        ));
     }
 
     @Override

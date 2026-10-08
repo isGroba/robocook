@@ -1,15 +1,14 @@
 package com.cocina.robocook.service;
 
-import com.cocina.robocook.dto.RecipeCreateDTO;
-import com.cocina.robocook.dto.RecipeDTO;
-import com.cocina.robocook.dto.RecipeFilterDTO;
-import com.cocina.robocook.dto.RecipeUpdateDTO;
+import com.cocina.robocook.dto.*;
 
 import java.util.List;
 
 public interface RecipeService {
 
     List<RecipeDTO> findAll();
+
+    PageResponseDTO<RecipeDTO> findAllPagination(int page, int size, String sortBy, String sortDirection);
 
     RecipeDTO findById(Long id);
 

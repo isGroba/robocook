@@ -30,7 +30,7 @@ public class RecipeApiController {
 
     @Operation(
             summary = "Get all recipes",
-            description = "Obtain all recipes order by name"
+            description = "Obtain all recipes with pagination"
     )
     @ApiResponse(
             responseCode = "200",
@@ -38,9 +38,14 @@ public class RecipeApiController {
             content = @Content(schema = @Schema(implementation = RecipeDTO.class))
     )
     @GetMapping
-    public ResponseEntity<List<RecipeDTO>> getAllRecipes(){
+    public ResponseEntity<PageResponseDTO<RecipeDTO>> getAllRecipes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection){
         log.info("GET /api/v1/recipes - Get all recipes");
-        List<RecipeDTO> recipeDTOS = recipeService.findAll();
+
+        PageResponseDTO<RecipeDTO> recipeDTOS = recipeService.findAllPagination(page, size, sortBy, sortDirection);
         return ResponseEntity.ok(recipeDTOS);
     }
 
