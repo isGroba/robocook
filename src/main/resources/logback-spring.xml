@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_PATH" value="./logs" />
+    <property name="LOG_FILE_NAME" value="recipe-app" />
+
+    <!-- 1. CONFIGURACIÓN PARA LA CONSOLA (Desarrollo local con colores) -->
+    <appender name="CONSOLA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. CONFIGURACIÓN PARA EL ARCHIVO (Persistencia profesional) -->
+    <appender name="ARCHIVO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Archivo activo actual -->
+        <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+
+        <!-- Política de rotación: Crea un archivo nuevo cada día y lo comprime -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Formato del nombre para el histórico comprimido (.gz) -->
+            <fileNamePattern>${LOG_PATH}/archivos/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+
+            <!-- Conserva los logs de los últimos 20 días -->
+            <maxHistory>20</maxHistory>
+
+            <!-- Límite total de espacio en disco para el histórico (ej. 2 Gigabytes) -->
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 3. NUEVO: ARCHIVO EXCLUSIVO PARA ERRORES CRÍTICOS (Solo nivel ERROR) -->
+    <appender name="ARCHIVO_ERRORES" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${LOG_FILE_NAME}-errors.log</file>
+
+        <!-- El filtro mágico: Solo acepta errores y deniega lo demás -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Guarda el histórico de errores comprimido por separado -->
+            <fileNamePattern>${LOG_PATH}/errores/${LOG_FILE_NAME}-errors-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>60</maxHistory> <!-- Conservamos los errores más tiempo (60 días) -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.cocina.robocook" level="DEBUG" />
+    <logger name="org.hibernate" level="WARN" />
+
+    <!-- Raíz del sistema de logs: Aplica a consola y archivo en nivel INFO o superior -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLA" />
+        <appender-ref ref="ARCHIVO" />
+        <appender-ref ref="ARCHIVO_ERRORES" />
+    </root>
+
+</configuration>

@@ -27,6 +27,9 @@ Aplicación Backend para la gestión de recetas de cocina.
         - devtools
 - MySQL
 - Maven
+
+### Utilidades
+- Configurado sistema de archivo de logs, tanto del proyecto como un apartado solo con los mensajes de ERROR para una revisión más rápida
 ***
 
 ## Instalación y puesta en marcha
