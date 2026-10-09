@@ -7,8 +7,6 @@ import com.cocina.robocook.entity.Recipe;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 @AllArgsConstructor
 public class RecipeMapper {
@@ -34,10 +32,10 @@ public class RecipeMapper {
                 .tasteScore(recipe.getTasteScore())
                 .portions(recipe.getPortions())
                 .calories(recipe.getCalories())
-                .categories(null != recipe.getCategories() ? recipe.getCategories().stream().map(categoryMapper::toSimpleDTO).collect(Collectors.toList()):null)
-                .labels(null != recipe.getLabels() ? recipe.getLabels().stream().map(labelMapper::toSimpleDTO).collect(Collectors.toList()):null)
-                .steps(null != recipe.getSteps() ? recipe.getSteps().stream().map(stepMapper::toDTO).collect(Collectors.toList()):null)
-                .recipeIngredients(null != recipe.getRecipeIngredients() ? recipe.getRecipeIngredients().stream().map(ingredientMapper::toDTO).collect(Collectors.toList()):null)
+                .categories(null != recipe.getCategories() ? recipe.getCategories().stream().map(categoryMapper::toSimpleDTO).toList():null)
+                .labels(null != recipe.getLabels() ? recipe.getLabels().stream().map(labelMapper::toSimpleDTO).toList():null)
+                .steps(null != recipe.getSteps() ? recipe.getSteps().stream().map(stepMapper::toDTO).toList():null)
+                .recipeIngredients(null != recipe.getRecipeIngredients() ? recipe.getRecipeIngredients().stream().map(ingredientMapper::toDTO).toList():null)
                 .build();
 
     }

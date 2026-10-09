@@ -8,8 +8,6 @@ import com.cocina.robocook.entity.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @Component
 public class CategoryMapper {
@@ -26,7 +24,7 @@ public class CategoryMapper {
                 .recipes(null != category.getRecipes()?
                             category.getRecipes().stream()
                                     .map(recipeSimpleMapper::toDTO)
-                                    .collect(Collectors.toList())
+                                    .toList()
                             : null)
                 .build();
     }

@@ -33,7 +33,7 @@ public class LabelServiceImpl implements LabelService{
         return repository.findAllByOrderByNameAsc()
                 .stream()
                 .map(labelMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class LabelServiceImpl implements LabelService{
         return repository.findByNameContaining(query)
                 .stream()
                 .map(labelMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
 
     }
 

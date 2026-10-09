@@ -8,8 +8,6 @@ import com.cocina.robocook.entity.Label;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @AllArgsConstructor
 @Component
 public class LabelMapper {
@@ -26,7 +24,7 @@ public class LabelMapper {
                 .recipes(null !=label.getRecipes()?
                         label.getRecipes().stream()
                                 .map(recipeSimpleMapper::toDTO)
-                                .collect(Collectors.toList())
+                                .toList()
                         : null)
                 .build();
     }

@@ -21,6 +21,5 @@ public class ErrorResponse {
     private String message;
     private String path;
 
-    // Validation errors: { "field": "error message" }
     private Map<String, String> validationErrors;
 }

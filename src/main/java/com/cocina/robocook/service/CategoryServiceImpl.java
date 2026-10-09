@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService{
 
         return repository.findAllByOrderByNameAsc()
                 .stream().map(categoryMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService{
         return repository.findByNameContaining(query)
                 .stream()
                 .map(categoryMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

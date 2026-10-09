@@ -4,13 +4,8 @@ import com.cocina.robocook.entity.Difficulty;
 import com.cocina.robocook.entity.Season;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
