@@ -27,9 +27,7 @@ public class RobocookRepositoryImpl implements RobocookRepository {
         TypedQuery<Recipe> query = entityManager.createQuery("select r from Recipe r join fetch r.steps where r.id = :valueId", Recipe.class);
         query.setParameter("valueId", id);
 
-        Recipe recipe = query.getSingleResult();
-
-        return recipe;
+        return query.getSingleResult();
     }
 
     // mejor dividir esta consulta en varias para no tener múltiples JOIN
@@ -44,8 +42,7 @@ public class RobocookRepositoryImpl implements RobocookRepository {
                 "where r.id = :data", Recipe.class);
         query.setParameter("data", id);
 
-        Recipe recipe = query.getSingleResult();
-        return recipe;
+        return query.getSingleResult();
     }
 
     @Override
@@ -59,14 +56,13 @@ public class RobocookRepositoryImpl implements RobocookRepository {
                 "where r.id = :data", Recipe.class);
         query.setParameter("data", id);
 
-        Recipe recipe = query.getSingleResult();
-        return recipe;
+        return query.getSingleResult();
     }
 
     @Override
     @Transactional
-    public void updateRecipe(Recipe tempRecipe) {
-        entityManager.merge(tempRecipe);
+    public Recipe updateRecipe(Recipe tempRecipe) {
+        return entityManager.merge(tempRecipe);
     }
 
     @Override
@@ -99,8 +95,8 @@ public class RobocookRepositoryImpl implements RobocookRepository {
 
     @Override
     @Transactional
-    public void updateStep(Step tempStep) {
-        entityManager.merge(tempStep);
+    public Step updateStep(Step tempStep) {
+        return entityManager.merge(tempStep);
     }
 
     @Override

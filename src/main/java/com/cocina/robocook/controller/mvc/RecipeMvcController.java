@@ -21,6 +21,7 @@ import java.util.List;
 @Slf4j
 public class RecipeMvcController {
 
+    private static final String REDIRECT_LIST = "redirect:/backoffice/recipes/list";
     private final RecipeService recipeService;
     private final LabelService labelService;
     private final CategoryService categoryService;
@@ -65,19 +66,19 @@ public class RecipeMvcController {
     public String save(@ModelAttribute("theRecipe") RecipeDTO formRecipe){
         log.info("POST /recipes/save - Saving complete recipe");
         recipeService.createComplete(formRecipe);
-        return "redirect:/backoffice/recipes/list";
+        return REDIRECT_LIST;
     }
 
     @PostMapping("/update")
     public String updateRecipe(@ModelAttribute("theRecipe") RecipeDTO formRecipe){
         log.info("POST /recipes/update - Updating complete recipe");
         recipeService.updateComplete(formRecipe);
-        return "redirect:/backoffice/recipes/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/delete")
     public String deleteLabel(@RequestParam("recipeId") int theId, Model model){
         recipeService.deleteById((long)theId);
-        return "redirect:/backoffice/recipes/list";
+        return REDIRECT_LIST;
     }
 }

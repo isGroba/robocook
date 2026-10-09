@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RobocookMvcController {
 
     @GetMapping("/list")
-    public String main(Model model){
+    public String menu(Model model){
         model.addAttribute("title", "Robocook");
         return "robocook";
     }

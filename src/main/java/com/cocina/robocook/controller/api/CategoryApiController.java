@@ -155,7 +155,7 @@ public class CategoryApiController {
                     description = "Category not found"
             )
     })
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id){
         log.info("DELETE /api/v1/categories/{} - Category removed", id);
 

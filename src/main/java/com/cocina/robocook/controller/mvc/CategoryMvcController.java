@@ -19,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class CategoryMvcController {
 
+    private static final String REDIRECT_LIST = "redirect:/backoffice/categories/list";
     private final CategoryService categoryService;
 
     @GetMapping("/list")
@@ -53,7 +54,7 @@ public class CategoryMvcController {
         log.info("POST /categories/save - Save category: {}", createDTO.getName());
 
         categoryService.create(createDTO);
-        return "redirect:/backoffice/categories/list";
+        return REDIRECT_LIST;
     }
 
     @PostMapping("/update")
@@ -62,7 +63,7 @@ public class CategoryMvcController {
         log.info("POST /categories/update - Update category: {}", updateDTO.getName());
 
         categoryService.update((long)theId, updateDTO);
-        return "redirect:/backoffice/categories/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/delete")
@@ -70,7 +71,7 @@ public class CategoryMvcController {
         log.info("GET /categories/delete - Delete category: {}", theId);
 
         categoryService.deleteById((long)theId);
-        return "redirect:/backoffice/categories/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/search")

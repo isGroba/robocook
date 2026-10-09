@@ -34,7 +34,7 @@ public class IngredientServiceImpl implements IngredientService{
         return repository.findAllByOrderByNameAsc()
                 .stream()
                 .map(ingredientMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class IngredientServiceImpl implements IngredientService{
         return repository.findByNameContaining(query)
                 .stream()
                 .map(ingredientMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

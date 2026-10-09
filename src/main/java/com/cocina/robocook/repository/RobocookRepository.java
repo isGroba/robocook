@@ -12,7 +12,7 @@ public interface RobocookRepository {
 
     Recipe findRecipeCompleteById(Long id);
 
-    void updateRecipe(Recipe tempReceita);
+    Recipe updateRecipe(Recipe tempReceita);
 
     Ingredient findIngredientById(Long id);
 
@@ -25,7 +25,7 @@ public interface RobocookRepository {
     // methods for Step class
     Step findStepById(Long id);
 
-    void updateStep(Step tempStep);
+    Step updateStep(Step tempStep);
 
     void deleteStepById(Long id);
 

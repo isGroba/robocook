@@ -10,12 +10,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    private static final String LOCAL_TIME_MADRID = "Europe/Madrid";
 
     /**
      * ResourceNotFoundException (404)
@@ -27,7 +30,7 @@ public class GlobalExceptionHandler {
         log.error("resource not found: {}", ex.getMessage());
 
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
+                .timestamp(LocalDateTime.now(ZoneId.of(LOCAL_TIME_MADRID)))
                 .status(HttpStatus.NOT_FOUND.value())
                 .message("Robocook:: " + ex.getMessage())
                 .path(request.getDescription(false).replace("uri=", ""))
@@ -61,7 +64,7 @@ public class GlobalExceptionHandler {
         );
 
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
+                .timestamp(LocalDateTime.now(ZoneId.of(LOCAL_TIME_MADRID)))
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Robocook:: Validation error")
                 .validationErrors(errors)
@@ -81,7 +84,7 @@ public class GlobalExceptionHandler {
         log.error("Unexpected error: {}", ex.getMessage());
 
         ErrorResponse errorResponse = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
+                .timestamp(LocalDateTime.now(ZoneId.of(LOCAL_TIME_MADRID)))
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Robocook:: Internal server error")
                 .path(request.getDescription(false).replace("uri=", ""))

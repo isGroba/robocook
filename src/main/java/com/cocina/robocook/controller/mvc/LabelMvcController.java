@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 public class LabelMvcController {
 
+    private static final String REDIRECT_LIST = "redirect:/backoffice/labels/list";
     private final LabelService labelService;
 
 
@@ -54,7 +55,7 @@ public class LabelMvcController {
         log.info("POST /labels/save - Save label: {}", createDTO.getName());
 
         labelService.create(createDTO);
-        return "redirect:/backoffice/labels/list";
+        return REDIRECT_LIST;
     }
 
     @PostMapping("/update")
@@ -63,7 +64,7 @@ public class LabelMvcController {
         log.info("POST /labels/update - Update label: {}", updateDTO.getName());
 
         labelService.update((long)theId, updateDTO);
-        return "redirect:/backoffice/labels/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/delete")
@@ -71,7 +72,7 @@ public class LabelMvcController {
         log.info("GET /labels/delete - Delete label: {}", theId);
 
         labelService.deleteById((long)theId);
-        return "redirect:/backoffice/labels/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/search")

@@ -3,9 +3,11 @@ package com.cocina.robocook.utils;
 import com.cocina.robocook.entity.Recipe;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RecipeSorter {
+
+    private RecipeSorter() {}
+
     private static final Map<String, Comparator<Recipe>> RECIPE_COMPARATORS = Map.of(
             "name", Comparator.comparing(
                     Recipe::getName,
@@ -34,14 +36,14 @@ public class RecipeSorter {
         return recipes.stream()
                 .filter(Objects::nonNull)
                 .sorted(comparator)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private static int parseScore(String score) {
         if (score == null) return 0;
         try {
             return Integer.parseInt(score.trim());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             return 0;
         }
     }

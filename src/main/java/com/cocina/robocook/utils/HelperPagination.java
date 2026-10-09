@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HelperPagination {
 
+    private HelperPagination(){}
+    
     private static final int MIN_PAGE_SIZE =1;
     private static final int MAX_PAGE_SIZE =100;
 

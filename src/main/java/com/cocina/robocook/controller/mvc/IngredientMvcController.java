@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 public class IngredientMvcController {
 
+    private static final String REDIRECT_LIST = "redirect:/backoffice/ingredients/list";
     private final IngredientService ingredientService;
 
     @GetMapping("/list")
@@ -57,7 +58,7 @@ public class IngredientMvcController {
         log.info("POST /ingredients/save - Save ingredient: {}", createDTO.getName());
 
         ingredientService.create(createDTO);
-        return "redirect:/backoffice/ingredients/list";
+        return REDIRECT_LIST;
     }
 
     @PostMapping("/update")
@@ -66,7 +67,7 @@ public class IngredientMvcController {
         log.info("POST /ingredients/update - Update ingredient: {}", updateDTO.getName());
 
         ingredientService.update((long)theId, updateDTO);
-        return "redirect:/backoffice/ingredients/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/delete")
@@ -74,7 +75,7 @@ public class IngredientMvcController {
         log.info("GET /ingredients/delete - Delete ingredient: {}", theId);
 
         ingredientService.deleteById((long)theId);
-        return "redirect:/backoffice/ingredients/list";
+        return REDIRECT_LIST;
     }
 
     @GetMapping("/search")
