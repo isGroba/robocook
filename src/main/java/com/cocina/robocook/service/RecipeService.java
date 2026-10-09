@@ -8,13 +8,11 @@ public interface RecipeService {
 
     List<RecipeDTO> findAll();
 
-    PageResponseDTO<RecipeDTO> findAllPagination(int page, int size, String sortBy, String sortDirection);
+    PageResponseDTO<RecipeDTO> findAllPaginated(int page, int size, String sortBy, String sortDirection);
 
     RecipeDTO findById(Long id);
 
-    List<RecipeDTO> findByFilters(RecipeFilterDTO filterDTO);
-
-    List<RecipeDTO> findByNameContaining(String query);
+    PageResponseDTO<RecipeDTO> findByFiltersPaginated(RecipeFilterDTO filterDTO, int page, int size, String sortBy, String sortDirection);
 
     RecipeDTO create(RecipeCreateDTO createDTO);
 

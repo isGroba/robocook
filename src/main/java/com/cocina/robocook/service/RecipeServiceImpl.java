@@ -9,7 +9,6 @@ import com.cocina.robocook.repository.IngredientRepository;
 import com.cocina.robocook.repository.LabelRepository;
 import com.cocina.robocook.repository.RecipeRepository;
 import com.cocina.robocook.utils.HelperPagination;
-import com.cocina.robocook.utils.RecipeSorter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -46,7 +45,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    public PageResponseDTO<RecipeDTO> findAllPagination(int page, int size, String sortBy, String sortDirection) {
+    public PageResponseDTO<RecipeDTO> findAllPaginated(int page, int size, String sortBy, String sortDirection) {
         log.debug("Get order list by pagination");
 
         page = Math.max(0, page);
@@ -83,15 +82,22 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<RecipeDTO> findByFilters(RecipeFilterDTO filterDTO) {
+    public PageResponseDTO<RecipeDTO> findByFiltersPaginated(RecipeFilterDTO filterDTO, int page, int size, String sortBy, String sortDirection) {
         Season season = filterDTO.getSeason() !=null ? filterDTO.getSeason() : null;
         Difficulty difficulty = filterDTO.getDifficulty() != null ? filterDTO.getDifficulty() : null;
         List<Long> labels = filterDTO.getLabelIds() != null && !filterDTO.getLabelIds().isEmpty()? filterDTO.getLabelIds() : null;
         List<Long> categories = filterDTO.getCategoryIds()!= null && !filterDTO.getCategoryIds().isEmpty()? filterDTO.getCategoryIds() : null;
         Integer preparationTime = filterDTO.getPreparationTime() != null ? filterDTO.getPreparationTime() : null;
 
-        List<Recipe> result = repository.findByFilters(
+        page = Math.max(0, page);
+        size = HelperPagination.validatePageSize(size);
+        sortBy = HelperPagination.normalizeSortBy(sortBy);
+
+        Sort.Direction direction = "desc".equalsIgnoreCase(sortDirection) ? Sort.Direction.DESC: Sort.Direction.ASC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Recipe> recipePage = repository.findByFiltersPagination(
                 filterDTO.getName(),
                 difficulty,
                 season,
@@ -101,30 +107,18 @@ public class RecipeServiceImpl implements RecipeService{
                 filterDTO.getMaxHealthyScore(),
                 filterDTO.getMinTasteScore(),
                 filterDTO.getMaxTasteScore(),
-                preparationTime);
-
-        result = RecipeSorter.sortRecipes(result, filterDTO.getSortBy(), filterDTO.getSortDirection());
-
-        log.info("Found {} recipes matching filters", result.size());
-        return result.stream()
-                .map(recipeMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<RecipeDTO> findByNameContaining(String query) {
-        log.debug("Finding recipes that contains: {}", query);
-
-        if (query == null || query.trim().isEmpty()) {
-            return List.of();
-        }
-
-        return repository.findByNameContainingIgnoreCase(query)
+                preparationTime,
+                pageable);
+        List<RecipeDTO> recipesDTO = recipePage.getContent()
                 .stream()
                 .map(recipeMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
+
+        return PageResponseDTO.from(new org.springframework.data.domain.PageImpl<>(
+                recipesDTO,
+                pageable,
+                recipePage.getTotalElements()
+        ));
     }
 
     @Override

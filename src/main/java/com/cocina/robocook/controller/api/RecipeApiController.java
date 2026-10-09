@@ -16,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/recipes")
 @RequiredArgsConstructor
@@ -27,27 +25,6 @@ import java.util.List;
 public class RecipeApiController {
 
     private final RecipeService recipeService;
-
-    @Operation(
-            summary = "Get all recipes",
-            description = "Obtain all recipes with pagination"
-    )
-    @ApiResponse(
-            responseCode = "200",
-            description = "List of recipes successfully obtained",
-            content = @Content(schema = @Schema(implementation = RecipeDTO.class))
-    )
-    @GetMapping
-    public ResponseEntity<PageResponseDTO<RecipeDTO>> getAllRecipes(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "name") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection){
-        log.info("GET /api/v1/recipes - Get all recipes");
-
-        PageResponseDTO<RecipeDTO> recipeDTOS = recipeService.findAllPagination(page, size, sortBy, sortDirection);
-        return ResponseEntity.ok(recipeDTOS);
-    }
 
     @Operation(
             summary = "Get recipe by ID",
@@ -72,6 +49,27 @@ public class RecipeApiController {
     }
 
     @Operation(
+            summary = "Get all recipes",
+            description = "Obtain all recipes with pagination"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "List of recipes successfully obtained",
+            content = @Content(schema = @Schema(implementation = RecipeDTO.class))
+    )
+    @GetMapping
+    public ResponseEntity<PageResponseDTO<RecipeDTO>> getAllRecipes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection){
+        log.info("GET /api/v1/recipes - Get all recipes");
+
+        PageResponseDTO<RecipeDTO> recipeDTOS = recipeService.findAllPaginated(page, size, sortBy, sortDirection);
+        return ResponseEntity.ok(recipeDTOS);
+    }
+
+    @Operation(
             summary = "Find recipes with advanced filters",
             description = "Search recipes by name, difficulty, season, categories, labels, scores and time preparation"
     )
@@ -83,9 +81,14 @@ public class RecipeApiController {
             )
     })
     @PostMapping("/search")
-    public ResponseEntity<List<RecipeDTO>> searchRecipes(@RequestBody RecipeFilterDTO filterDTO){
-        log.info("POST /api/v1/recipes/search - Find with filters: {}", filterDTO);
-        List<RecipeDTO> recipeDTOS = recipeService.findByFilters(filterDTO);
+    public ResponseEntity<PageResponseDTO<RecipeDTO>> searchRecipes(
+            @RequestBody RecipeFilterDTO filterDTO,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDirection){
+        log.info("POST /api/v1/recipes/search/paginated - Find with page:{}, size:{}, sortBy:{}, sortDirection:{}", page, size, sortBy, sortDirection);
+        PageResponseDTO<RecipeDTO> recipeDTOS = recipeService.findByFiltersPaginated(filterDTO, page, size, sortBy, sortDirection);
         return ResponseEntity.ok(recipeDTOS);
     }
 

@@ -3,9 +3,6 @@ package com.cocina.robocook.repository;
 import com.cocina.robocook.entity.Difficulty;
 import com.cocina.robocook.entity.Recipe;
 import com.cocina.robocook.entity.Season;
-import jakarta.validation.OverridesAttribute;
-import jakarta.validation.constraints.NotNull;
-import org.jspecify.annotations.NullMarked;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,8 +17,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     List<Recipe> findAllByOrderByNameAsc();
 
-    List<Recipe> findByNameContainingIgnoreCase(String query);
-
     @Query("SELECT DISTINCT r FROM Recipe r " +
             "LEFT JOIN r.categories c " +
             "LEFT JOIN r.labels l " +
@@ -34,9 +29,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
             "AND (:maxHealthyScore IS NULL OR r.healthyScore <= :maxHealthyScore) " +
             "AND (:minTasteScore IS NULL OR r.tasteScore >= :minTasteScore) " +
             "AND (:maxTasteScore IS NULL OR r.tasteScore <= :maxTasteScore) " +
-            "AND (:preparationTime IS NULL OR r.preparationTime <= :preparationTime) " +
-            "ORDER BY r.name ASC")
-    List<Recipe> findByFilters(
+            "AND (:preparationTime IS NULL OR r.preparationTime <= :preparationTime) ")
+    Page<Recipe> findByFiltersPagination(
             @Param("name") String name,
             @Param("difficulty") Difficulty difficulty,
             @Param("season") Season season,
@@ -46,6 +40,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
             @Param("maxHealthyScore") Integer maxHealthyScore,
             @Param("minTasteScore") Integer minTasteScore,
             @Param("maxTasteScore") Integer maxTasteScore,
-            @Param("preparationTime") Integer preparationTime
+            @Param("preparationTime") Integer preparationTime,
+            Pageable pageable
     );
+
 }
