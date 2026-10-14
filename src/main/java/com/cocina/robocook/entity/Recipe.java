@@ -1,7 +1,7 @@
 package com.cocina.robocook.entity;
 
 import jakarta.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -52,7 +52,7 @@ public class Recipe {
   private String calories;
 
   @Column(name = "save_date", insertable = false, updatable = false)
-  private Date saveDate;
+  private LocalDateTime saveDate;
 
   @ManyToMany(
       fetch = FetchType.LAZY,

@@ -2,7 +2,7 @@ package com.cocina.robocook.dto;
 
 import com.cocina.robocook.entity.*;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.*;
@@ -46,7 +46,7 @@ public class RecipeDTO {
   private String calories;
 
   @Schema(description = "Now")
-  private Date saveDate;
+  private LocalDateTime saveDate;
 
   @Schema(description = "Categories assigned to this recipe", example = "1")
   private List<CategorySimpleDTO> categories = new ArrayList<>();
