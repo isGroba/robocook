@@ -107,6 +107,22 @@ public class RecipeApiController {
     return ResponseEntity.status(HttpStatus.CREATED).body(createdRecipe);
   }
 
+  @Operation(summary = "Create complete recipe", description = "Create complete recipe")
+  @ApiResponses(
+          value = {
+                  @ApiResponse(
+                          responseCode = "201",
+                          description = "Created recipe",
+                          content = @Content(schema = @Schema(implementation = RecipeDTO.class))),
+                  @ApiResponse(responseCode = "400", description = "No valid data")
+          })
+  @PostMapping("/create-complete")
+  public ResponseEntity<RecipeDTO> createCompleteRecipe(@Valid @RequestBody RecipeDTO recipeDTO) {
+    log.info("POST /api/v1/recipes/complete - Creating complete recipe: {}", recipeDTO.getName());
+    RecipeDTO createdRecipe = recipeService.createComplete(recipeDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(createdRecipe);
+  }
+
   @Operation(summary = "Update recipe", description = "Update a recipe that exist identified by ID")
   @ApiResponses(
       value = {
@@ -123,6 +139,26 @@ public class RecipeApiController {
     log.info("PUT /api/v1/recipes/{} - Updating recipe", id);
 
     RecipeDTO updatedRecipe = recipeService.update(id, updateDTO);
+
+    return ResponseEntity.ok(updatedRecipe);
+  }
+
+  @Operation(summary = "Update complete recipe", description = "Update a complete recipe that exist identified by ID")
+  @ApiResponses(
+          value = {
+                  @ApiResponse(
+                          responseCode = "200",
+                          description = "Updated recipe",
+                          content = @Content(schema = @Schema(implementation = RecipeDTO.class))),
+                  @ApiResponse(responseCode = "404", description = "Not found recipe"),
+                  @ApiResponse(responseCode = "400", description = "Data no valid")
+          })
+  @PutMapping("/update-complete/{id}")
+  public ResponseEntity<RecipeDTO> updateCompleteRecipe(
+          @PathVariable Long id, @Valid @RequestBody RecipeDTO recipeDTO) {
+    log.info("PUT /api/v1/recipes/complete/{} - Updating recipe", id);
+
+    RecipeDTO updatedRecipe = recipeService.updateComplete(recipeDTO);
 
     return ResponseEntity.ok(updatedRecipe);
   }
