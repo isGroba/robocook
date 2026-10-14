@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -65,14 +66,7 @@ public class RecipeServiceImpl implements RecipeService {
   public RecipeDTO findById(Long id) {
     log.debug("Finding Recipe with id: {}", id);
 
-    Recipe recipe =
-        repository
-            .findById(id)
-            .orElseThrow(
-                () -> {
-                  log.error("Recipe not found with ID: {}", id);
-                  return new ResourceNotFoundException("Recipe not found with ID: " + id);
-                });
+    Recipe recipe = findRecipeEntityOrThrow(id);
     return recipeMapper.toDTO(recipe);
   }
 
@@ -135,14 +129,7 @@ public class RecipeServiceImpl implements RecipeService {
   public RecipeDTO update(Long id, RecipeUpdateDTO updateDTO) {
     log.debug("Updating recipe {}", updateDTO.getName());
 
-    Recipe recipe =
-        repository
-            .findById(id)
-            .orElseThrow(
-                () -> {
-                  log.error("Recipe not found with ID: {}", id);
-                  return new ResourceNotFoundException("Recipe not found with ID: " + id);
-                });
+    Recipe recipe = findRecipeEntityOrThrow(id);
 
     recipeMapper.updateEntity(updateDTO, recipe);
     Recipe updatedRecipe = repository.save(recipe);
@@ -160,7 +147,7 @@ public class RecipeServiceImpl implements RecipeService {
       Recipe recipe = recipeMapper.toEntity(recipeDTO);
 
       // add categories
-      if (null != recipeDTO.getCategories() && !recipeDTO.getCategories().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getCategories())) {
         log.debug("Adding {} labels", recipeDTO.getCategories().size());
 
         for (CategorySimpleDTO categorySimpleDTO : recipeDTO.getCategories()) {
@@ -178,7 +165,7 @@ public class RecipeServiceImpl implements RecipeService {
       }
 
       // add Labels
-      if (null != recipeDTO.getLabels() && !recipeDTO.getLabels().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getLabels())) {
         log.debug("Adding {} labels", recipeDTO.getLabels().size());
 
         for (LabelSimpleDTO labelSimpleDTO : recipeDTO.getLabels()) {
@@ -196,7 +183,7 @@ public class RecipeServiceImpl implements RecipeService {
       }
 
       // add Steps
-      if (null != recipeDTO.getSteps() && !recipeDTO.getSteps().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getSteps())) {
         log.debug("Adding {} steps", recipeDTO.getSteps().size());
 
         for (StepDTO stepDTO : recipeDTO.getSteps()) {
@@ -208,7 +195,7 @@ public class RecipeServiceImpl implements RecipeService {
       }
 
       // add Ingredients
-      if (null != recipeDTO.getRecipeIngredients() && !recipeDTO.getRecipeIngredients().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getRecipeIngredients())) {
         log.debug("Adding {} ingredients", recipeDTO.getRecipeIngredients().size());
 
         for (RecipeIngredientDTO recipeIngredientDTO : recipeDTO.getRecipeIngredients()) {
@@ -258,27 +245,18 @@ public class RecipeServiceImpl implements RecipeService {
 
     try {
       // update recipe
-      Recipe recipe =
-          repository
-              .findById(recipeDTO.getId())
-              .orElseThrow(
-                  () -> {
-                    log.error("Recipe not found with ID: {}", recipeDTO.getId());
-                    return new ResourceNotFoundException(
-                        "Recipe not found with ID: " + recipeDTO.getId());
-                  });
+      Recipe recipe = findRecipeEntityOrThrow(recipeDTO.getId());
 
       RecipeUpdateDTO recipeUpdateDTO = recipeMapper.toUpdateDTO(recipeDTO);
       recipeMapper.updateEntity(recipeUpdateDTO, recipe);
 
       // update labels
-      if (null != recipeDTO.getLabels() && !recipeDTO.getLabels().isEmpty()) {
+      if (!CollectionUtils.isEmpty( recipeDTO.getLabels())) {
         log.debug(
             "Updating labels. Olds {}, News{}",
             recipe.getLabels().size(),
             recipeDTO.getLabels().size());
-
-        if (!recipe.getLabels().isEmpty()) recipe.getLabels().clear();
+        recipe.getLabels().clear();
 
         for (LabelSimpleDTO labelSimpleDTO : recipeDTO.getLabels()) {
           Label label =
@@ -295,13 +273,12 @@ public class RecipeServiceImpl implements RecipeService {
       }
 
       // update Categories
-      if (null != recipeDTO.getCategories() && !recipeDTO.getCategories().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getCategories())) {
         log.debug(
             "Updating categories. Olds {}, News{}",
             recipe.getCategories().size(),
             recipeDTO.getCategories().size());
-
-        if (!recipe.getCategories().isEmpty()) recipe.getCategories().clear();
+        recipe.getCategories().clear();
 
         for (CategorySimpleDTO categorySimpleDTO : recipeDTO.getCategories()) {
           Category category =
@@ -317,13 +294,12 @@ public class RecipeServiceImpl implements RecipeService {
         }
       }
       // update Steps
-      if (null != recipeDTO.getSteps() && !recipeDTO.getSteps().isEmpty()) {
+      if (!CollectionUtils.isEmpty(recipeDTO.getSteps())) {
         log.debug(
             "Updating steps. Olds {}, News{}",
             recipe.getSteps().size(),
             recipeDTO.getSteps().size());
-
-        if (!recipe.getSteps().isEmpty()) recipe.getSteps().clear();
+        recipe.getSteps().clear();
 
         for (StepDTO stepDTO : recipeDTO.getSteps()) {
           Step step = new Step();
@@ -338,8 +314,7 @@ public class RecipeServiceImpl implements RecipeService {
             "Updating ingredients. Olds: {}, News: {}",
             recipe.getRecipeIngredients().size(),
             recipeDTO.getRecipeIngredients().size());
-
-        if (!recipe.getRecipeIngredients().isEmpty()) recipe.getRecipeIngredients().clear();
+        recipe.getRecipeIngredients().clear();
 
         for (RecipeIngredientDTO recipeIngredientDTO : recipeDTO.getRecipeIngredients()) {
           Ingredient ingredient =
@@ -390,5 +365,18 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     repository.deleteById(id);
+  }
+
+// /////////////
+// METHODS AUX
+// /////////////
+
+  private Recipe findRecipeEntityOrThrow(Long id) {
+    return repository
+            .findById(id)
+            .orElseThrow(() -> {
+              log.error("Recipe not found with ID: {}", id);
+              return new ResourceNotFoundException("Recipe not found with ID: " + id);
+            });
   }
 }
