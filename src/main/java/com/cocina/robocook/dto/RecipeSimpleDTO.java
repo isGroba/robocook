@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Recipe summary")
 public class RecipeSimpleDTO {
 
-    @Schema(description = "Identifier", example = "1")
-    private Long id;
+  @Schema(description = "Identifier", example = "1")
+  private Long id;
 
-    @Schema(description = "Recipe name", example = "1")
-    private String name;
+  @Schema(description = "Recipe name", example = "1")
+  private String name;
 
-    @Schema(description = "Description", example = "Traditional omelette... ")
-    private String description;
+  @Schema(description = "Description", example = "Traditional omelette... ")
+  private String description;
 
-    @Schema(description = "Difficulty", example = "Very hard")
-    private Difficulty difficulty;
+  @Schema(description = "Difficulty", example = "Very hard")
+  private Difficulty difficulty;
 }

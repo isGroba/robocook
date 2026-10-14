@@ -1,14 +1,12 @@
 package com.cocina.robocook.repository;
 
 import com.cocina.robocook.entity.Category;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    List<Category> findAllByOrderByNameAsc();
+  List<Category> findAllByOrderByNameAsc();
 
-    List<Category> findByNameContaining(String query);
-
+  List<Category> findByNameContaining(String query);
 }

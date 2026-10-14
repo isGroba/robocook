@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Label")
 public class LabelSimpleDTO {
 
-    @JsonProperty("id")
-    @Schema(description = "Label ID", example = "1")
-    private Long id;
+  @JsonProperty("id")
+  @Schema(description = "Label ID", example = "1")
+  private Long id;
 
-    @JsonProperty("name")
-    @Schema(description = "Label name", example = "for kids")
-    private String name;
-
+  @JsonProperty("name")
+  @Schema(description = "Label name", example = "for kids")
+  private String name;
 }

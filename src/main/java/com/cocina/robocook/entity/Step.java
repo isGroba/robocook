@@ -14,20 +14,20 @@ import lombok.ToString;
 @Table(name = "step")
 public class Step {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "order_number")
-    private int orderNumber;
+  @Column(name = "order_number")
+  private int orderNumber;
 
-    @Column(name = "description")
-    private String description;
+  @Column(name = "description")
+  private String description;
 
-    //constructor
-    public Step(int orderNumber, String description) {
-        this.orderNumber = orderNumber;
-        this.description = description;
-    }
+  // constructor
+  public Step(int orderNumber, String description) {
+    this.orderNumber = orderNumber;
+    this.description = description;
+  }
 }

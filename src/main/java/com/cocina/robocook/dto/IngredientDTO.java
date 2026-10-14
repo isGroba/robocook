@@ -14,19 +14,19 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Ingredient")
 public class IngredientDTO {
 
-    @JsonProperty("id")
-    @Schema(description = "Ingredient ID", example = "1")
-    private Long id;
+  @JsonProperty("id")
+  @Schema(description = "Ingredient ID", example = "1")
+  private Long id;
 
-    @JsonProperty("name")
-    @Schema(description = "Ingredient name", example = "Tomato")
-    private String name;
+  @JsonProperty("name")
+  @Schema(description = "Ingredient name", example = "Tomato")
+  private String name;
 
-    @JsonProperty("calories")
-    @Schema(description = "Calories of one ingredient", example = "100")
-    private int calories;
+  @JsonProperty("calories")
+  @Schema(description = "Calories of one ingredient", example = "100")
+  private int calories;
 
-    @JsonProperty("alternative")
-    @Schema(description = "Alternative ingredient", example = "Tomato sauce")
-    private String alternative;
+  @JsonProperty("alternative")
+  @Schema(description = "Alternative ingredient", example = "Tomato sauce")
+  private String alternative;
 }

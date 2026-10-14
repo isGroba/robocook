@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Recipe ingredient")
 public class RecipeIngredientUpdateDTO {
 
-    @Positive(message = "The amount must be greater than 0")
-    @Schema(description = "Amount")
-    private Double amount;
+  @Positive(message = "The amount must be greater than 0")
+  @Schema(description = "Amount")
+  private Double amount;
 
-    @Schema(description = "Amount unit")
-    private String unit;
+  @Schema(description = "Amount unit")
+  private String unit;
 
-    @Schema(description = "It is optional")
-    private Boolean optional;
+  @Schema(description = "It is optional")
+  private Boolean optional;
 }

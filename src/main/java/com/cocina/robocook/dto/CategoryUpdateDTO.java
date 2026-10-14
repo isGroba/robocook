@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Update category")
 public class CategoryUpdateDTO {
 
-    @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
-    @Schema(description = "Category name", example = "For kids")
-    private String name;
-
+  @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
+  @Schema(description = "Category name", example = "For kids")
+  private String name;
 }

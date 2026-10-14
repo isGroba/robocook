@@ -3,15 +3,13 @@ package com.cocina.robocook.controller.mvc;
 import com.cocina.robocook.dto.CategoryCreateDTO;
 import com.cocina.robocook.dto.CategoryDTO;
 import com.cocina.robocook.dto.CategoryUpdateDTO;
-import com.cocina.robocook.dto.IngredientUpdateDTO;
 import com.cocina.robocook.service.CategoryService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/backoffice/categories")
@@ -19,66 +17,66 @@ import java.util.List;
 @Slf4j
 public class CategoryMvcController {
 
-    private static final String REDIRECT_LIST = "redirect:/backoffice/categories/list";
-    private final CategoryService categoryService;
+  private static final String REDIRECT_LIST = "redirect:/backoffice/categories/list";
+  private final CategoryService categoryService;
 
-    @GetMapping("/list")
-    public String listCategories(Model model){
-        log.info("GET /categories/list - Listing categories in backoffice");
+  @GetMapping("/list")
+  public String listCategories(Model model) {
+    log.info("GET /categories/list - Listing categories in backoffice");
 
-        List<CategoryDTO> theCategories = categoryService.findAll();
-        model.addAttribute("categories", theCategories);
-        return "category/list-category";
-    }
+    List<CategoryDTO> theCategories = categoryService.findAll();
+    model.addAttribute("categories", theCategories);
+    return "category/list-category";
+  }
 
-    @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model){
-        log.info("GET /categories/showFormForAdd - show creation form");
+  @GetMapping("/showFormForAdd")
+  public String showFormForAdd(Model model) {
+    log.info("GET /categories/showFormForAdd - show creation form");
 
-        model.addAttribute("theCategory", new CategoryCreateDTO());
-        return "category/category-form";
-    }
+    model.addAttribute("theCategory", new CategoryCreateDTO());
+    return "category/category-form";
+  }
 
-    @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("categoryId") int theId, Model model){
-        log.info("GET /categories/showFormForUpdate - show update form");
+  @GetMapping("/showFormForUpdate")
+  public String showFormForUpdate(@RequestParam("categoryId") int theId, Model model) {
+    log.info("GET /categories/showFormForUpdate - show update form");
 
-        CategoryDTO theCategory = categoryService.findById((long) theId);
-        model.addAttribute("theCategory", theCategory);
+    CategoryDTO theCategory = categoryService.findById((long) theId);
+    model.addAttribute("theCategory", theCategory);
 
-        return "category/category-update-form";
-    }
+    return "category/category-update-form";
+  }
 
-    @PostMapping("/save")
-    public String saveCategory(@ModelAttribute("theCategory") CategoryCreateDTO createDTO){
-        log.info("POST /categories/save - Save category: {}", createDTO.getName());
+  @PostMapping("/save")
+  public String saveCategory(@ModelAttribute("theCategory") CategoryCreateDTO createDTO) {
+    log.info("POST /categories/save - Save category: {}", createDTO.getName());
 
-        categoryService.create(createDTO);
-        return REDIRECT_LIST;
-    }
+    categoryService.create(createDTO);
+    return REDIRECT_LIST;
+  }
 
-    @PostMapping("/update")
-    public String updateCategory(@ModelAttribute("theCategory") CategoryUpdateDTO updateDTO
-            , @ModelAttribute("id") int theId){
-        log.info("POST /categories/update - Update category: {}", updateDTO.getName());
+  @PostMapping("/update")
+  public String updateCategory(
+      @ModelAttribute("theCategory") CategoryUpdateDTO updateDTO, @ModelAttribute("id") int theId) {
+    log.info("POST /categories/update - Update category: {}", updateDTO.getName());
 
-        categoryService.update((long)theId, updateDTO);
-        return REDIRECT_LIST;
-    }
+    categoryService.update((long) theId, updateDTO);
+    return REDIRECT_LIST;
+  }
 
-    @GetMapping("/delete")
-    public String deleteCategory(@RequestParam("categoryId") int theId){
-        log.info("GET /categories/delete - Delete category: {}", theId);
+  @GetMapping("/delete")
+  public String deleteCategory(@RequestParam("categoryId") int theId) {
+    log.info("GET /categories/delete - Delete category: {}", theId);
 
-        categoryService.deleteById((long)theId);
-        return REDIRECT_LIST;
-    }
+    categoryService.deleteById((long) theId);
+    return REDIRECT_LIST;
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public List<CategoryDTO> search(@RequestParam String query) {
-        log.info("GET /categories/search?query={} - Finding categories", query);
+  @GetMapping("/search")
+  @ResponseBody
+  public List<CategoryDTO> search(@RequestParam String query) {
+    log.info("GET /categories/search?query={} - Finding categories", query);
 
-        return categoryService.findByNameContaining(query);
-    }
+    return categoryService.findByNameContaining(query);
+  }
 }

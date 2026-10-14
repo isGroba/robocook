@@ -2,13 +2,12 @@ package com.cocina.robocook.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,32 +16,32 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-            mappedBy = "categories")
-    private List<Recipe> recipes;
+  @JsonIgnore
+  @ManyToMany(
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+      mappedBy = "categories")
+  private List<Recipe> recipes;
 
-    // constructor
-    public Category(String name) {
-        this.name = name;
+  // constructor
+  public Category(String name) {
+    this.name = name;
+  }
+
+  // add convenience methods
+  public void addRecipe(Recipe tempRecipe) {
+    if (recipes == null) {
+      recipes = new ArrayList<>();
     }
-
-    // add convenience methods
-    public void addRecipe(Recipe tempRecipe){
-        if(recipes == null){
-            recipes = new ArrayList<>();
-        }
-        recipes.add(tempRecipe);
-        tempRecipe.addCategory(this);
-    }
-
+    recipes.add(tempRecipe);
+    tempRecipe.addCategory(this);
+  }
 }

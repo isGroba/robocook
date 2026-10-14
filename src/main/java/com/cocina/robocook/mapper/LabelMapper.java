@@ -12,48 +12,39 @@ import org.springframework.stereotype.Component;
 @Component
 public class LabelMapper {
 
-    private final RecipeSimpleMapper recipeSimpleMapper;
+  private final RecipeSimpleMapper recipeSimpleMapper;
 
-    public LabelDTO toDTO(Label label){
-        if(null == label)
-            return null;
+  public LabelDTO toDTO(Label label) {
+    if (null == label) return null;
 
-        return LabelDTO.builder()
-                .id(label.getId())
-                .name(label.getName())
-                .recipes(null !=label.getRecipes()?
-                        label.getRecipes().stream()
-                                .map(recipeSimpleMapper::toDTO)
-                                .toList()
-                        : null)
-                .build();
-    }
+    return LabelDTO.builder()
+        .id(label.getId())
+        .name(label.getName())
+        .recipes(
+            null != label.getRecipes()
+                ? label.getRecipes().stream().map(recipeSimpleMapper::toDTO).toList()
+                : null)
+        .build();
+  }
 
-    public LabelSimpleDTO toSimpleDTO(Label label){
-        if(null == label)
-            return null;
+  public LabelSimpleDTO toSimpleDTO(Label label) {
+    if (null == label) return null;
 
-        return LabelSimpleDTO.builder()
-                .id(label.getId())
-                .name(label.getName())
-                .build();
-    }
+    return LabelSimpleDTO.builder().id(label.getId()).name(label.getName()).build();
+  }
 
-    public Label toEntity(LabelCreateDTO createDTO){
-        if(null == createDTO)
-            return null;
+  public Label toEntity(LabelCreateDTO createDTO) {
+    if (null == createDTO) return null;
 
-        Label label = new Label();
-        label.setName(createDTO.getName());
+    Label label = new Label();
+    label.setName(createDTO.getName());
 
-        return label;
-    }
+    return label;
+  }
 
-    public void updateEntity(LabelUpdateDTO updateDTO, Label label){
-        if (updateDTO == null)
-            return;
+  public void updateEntity(LabelUpdateDTO updateDTO, Label label) {
+    if (updateDTO == null) return;
 
-        if (updateDTO.getName() != null)
-            label.setName(updateDTO.getName());
-    }
+    if (updateDTO.getName() != null) label.setName(updateDTO.getName());
+  }
 }

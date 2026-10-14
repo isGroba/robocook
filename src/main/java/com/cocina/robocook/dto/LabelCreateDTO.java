@@ -15,9 +15,8 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Create label")
 public class LabelCreateDTO {
 
-    @NotBlank(message = "The name is mandatory")
-    @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
-    @Schema(description = "Label name", example = "For kids")
-    private String name;
-
+  @NotBlank(message = "The name is mandatory")
+  @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
+  @Schema(description = "Label name", example = "For kids")
+  private String name;
 }

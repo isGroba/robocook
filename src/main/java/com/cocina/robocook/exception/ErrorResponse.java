@@ -1,13 +1,12 @@
 package com.cocina.robocook.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDateTime;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -16,10 +15,10 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
 
-    private LocalDateTime timestamp;
-    private int status;
-    private String message;
-    private String path;
+  private LocalDateTime timestamp;
+  private int status;
+  private String message;
+  private String path;
 
-    private Map<String, String> validationErrors;
+  private Map<String, String> validationErrors;
 }

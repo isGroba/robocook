@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Create step")
 public class StepCreateDTO {
 
-    @Min(value = 1, message = "The number must be greater than 0")
-    @Schema(description = "Order step execution", example = "1")
-    private int orderNumber;
+  @Min(value = 1, message = "The number must be greater than 0")
+  @Schema(description = "Order step execution", example = "1")
+  private int orderNumber;
 
-    @NotBlank(message = "Describe the actions in this step")
-    @Schema(description = "description", example = "Cut the vegetables....")
-    private String description;
+  @NotBlank(message = "Describe the actions in this step")
+  @Schema(description = "description", example = "Cut the vegetables....")
+  private String description;
 }

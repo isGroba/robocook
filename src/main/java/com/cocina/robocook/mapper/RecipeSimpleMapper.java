@@ -7,15 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecipeSimpleMapper {
 
-    public RecipeSimpleDTO toDTO(Recipe recipe){
-        if(null == recipe)
-            return null;
+  public RecipeSimpleDTO toDTO(Recipe recipe) {
+    if (null == recipe) return null;
 
-        return RecipeSimpleDTO.builder()
-                .id(recipe.getId())
-                .name(recipe.getName())
-                .description(recipe.getDescription())
-                .difficulty(null != recipe.getDifficulty() ? recipe.getDifficulty(): null)
-                .build();
-    }
+    return RecipeSimpleDTO.builder()
+        .id(recipe.getId())
+        .name(recipe.getName())
+        .description(recipe.getDescription())
+        .difficulty(null != recipe.getDifficulty() ? recipe.getDifficulty() : null)
+        .build();
+  }
 }

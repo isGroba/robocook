@@ -14,14 +14,16 @@ import lombok.NoArgsConstructor;
 @Schema(description = "DTO to create ingredient")
 public class IngredientUpdateDTO {
 
-    @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
-    @Schema(description = "Ingredient name", example = "Tomato")
-    private String name;
+  @Size(min = 2, max = 100, message = "The name must be have between 2 and 100 characters long")
+  @Schema(description = "Ingredient name", example = "Tomato")
+  private String name;
 
-    @Schema(description = "Calories of one ingredient", example = "100")
-    private int calories;
+  @Schema(description = "Calories of one ingredient", example = "100")
+  private int calories;
 
-    @Size(max = 100, message = "The alternative ingredient must be have between 2 and 100 characters long")
-    @Schema(description = "Alternative ingredient", example = "Tomato sauce")
-    private String alternative;
+  @Size(
+      max = 100,
+      message = "The alternative ingredient must be have between 2 and 100 characters long")
+  @Schema(description = "Alternative ingredient", example = "Tomato sauce")
+  private String alternative;
 }

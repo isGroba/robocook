@@ -12,49 +12,39 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper {
 
-    private final RecipeSimpleMapper recipeSimpleMapper;
+  private final RecipeSimpleMapper recipeSimpleMapper;
 
-    public CategoryDTO toDTO(Category category){
-        if(null == category)
-            return null;
+  public CategoryDTO toDTO(Category category) {
+    if (null == category) return null;
 
-        return CategoryDTO.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .recipes(null != category.getRecipes()?
-                            category.getRecipes().stream()
-                                    .map(recipeSimpleMapper::toDTO)
-                                    .toList()
-                            : null)
-                .build();
-    }
+    return CategoryDTO.builder()
+        .id(category.getId())
+        .name(category.getName())
+        .recipes(
+            null != category.getRecipes()
+                ? category.getRecipes().stream().map(recipeSimpleMapper::toDTO).toList()
+                : null)
+        .build();
+  }
 
-    public CategorySimpleDTO toSimpleDTO(Category category){
-        if(null == category)
-            return null;
+  public CategorySimpleDTO toSimpleDTO(Category category) {
+    if (null == category) return null;
 
-        return CategorySimpleDTO.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .build();
-    }
+    return CategorySimpleDTO.builder().id(category.getId()).name(category.getName()).build();
+  }
 
-    public Category toEntity(CategoryCreateDTO createDTO){
-        if(null == createDTO)
-            return null;
+  public Category toEntity(CategoryCreateDTO createDTO) {
+    if (null == createDTO) return null;
 
-        Category category = new Category();
-        category.setName(createDTO.getName());
+    Category category = new Category();
+    category.setName(createDTO.getName());
 
-        return category;
-    }
+    return category;
+  }
 
-    public void updateEntity(CategoryUpdateDTO updateDTO, Category category){
-        if (updateDTO == null)
-            return;
+  public void updateEntity(CategoryUpdateDTO updateDTO, Category category) {
+    if (updateDTO == null) return;
 
-        if (updateDTO.getName() != null)
-            category.setName(updateDTO.getName());
-    }
-
+    if (updateDTO.getName() != null) category.setName(updateDTO.getName());
+  }
 }

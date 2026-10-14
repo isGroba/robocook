@@ -4,29 +4,28 @@ import com.cocina.robocook.entity.*;
 
 public interface RobocookRepository {
 
-    void saveRecipe(Recipe tempReceita);
+  void saveRecipe(Recipe tempReceita);
 
-    Recipe findRecipeById(Long id);
+  Recipe findRecipeById(Long id);
 
-    Recipe findRecipeAndIngredientsById(Long id);
+  Recipe findRecipeAndIngredientsById(Long id);
 
-    Recipe findRecipeCompleteById(Long id);
+  Recipe findRecipeCompleteById(Long id);
 
-    Recipe updateRecipe(Recipe tempReceita);
+  Recipe updateRecipe(Recipe tempReceita);
 
-    Ingredient findIngredientById(Long id);
+  Ingredient findIngredientById(Long id);
 
-    // CATEGORY
-    Category findCategoryAndRecipesById(Long id);
+  // CATEGORY
+  Category findCategoryAndRecipesById(Long id);
 
-    // LABEL
-    Label findLabelAndRecipesById(Long id);
+  // LABEL
+  Label findLabelAndRecipesById(Long id);
 
-    // methods for Step class
-    Step findStepById(Long id);
+  // methods for Step class
+  Step findStepById(Long id);
 
-    Step updateStep(Step tempStep);
+  Step updateStep(Step tempStep);
 
-    void deleteStepById(Long id);
-
+  void deleteStepById(Long id);
 }

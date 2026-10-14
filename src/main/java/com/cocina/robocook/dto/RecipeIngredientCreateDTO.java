@@ -16,21 +16,21 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Recipe ingredient")
 public class RecipeIngredientCreateDTO {
 
-    @NotNull(message = "The id is mandatory")
-    @Schema(description = "Recipe ingredient ID")
-    private Long id;
+  @NotNull(message = "The id is mandatory")
+  @Schema(description = "Recipe ingredient ID")
+  private Long id;
 
-    @Schema(description = "The ingredient id")
-    private Long ingredientId;
+  @Schema(description = "The ingredient id")
+  private Long ingredientId;
 
-    @Positive(message = "The amount must be greater than 0")
-    @Schema(description = "Amount")
-    private Double amount;
+  @Positive(message = "The amount must be greater than 0")
+  @Schema(description = "Amount")
+  private Double amount;
 
-    @NotBlank(message = "The unity is mandatory")
-    @Schema(description = "Amount unit")
-    private String unit;
+  @NotBlank(message = "The unity is mandatory")
+  @Schema(description = "Amount unit")
+  private String unit;
 
-    @Schema(description = "It is optional")
-    private boolean optional;
+  @Schema(description = "It is optional")
+  private boolean optional;
 }

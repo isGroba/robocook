@@ -11,124 +11,120 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class RecipeMapper {
 
-    private final CategoryMapper categoryMapper;
-    private final LabelMapper labelMapper;
-    private final StepMapper stepMapper;
-    private final RecipeIngredientMapper ingredientMapper;
+  private final CategoryMapper categoryMapper;
+  private final LabelMapper labelMapper;
+  private final StepMapper stepMapper;
+  private final RecipeIngredientMapper ingredientMapper;
 
-    public RecipeDTO toDTO(Recipe recipe){
+  public RecipeDTO toDTO(Recipe recipe) {
 
-        if (null == recipe)
-            return null;
+    if (null == recipe) return null;
 
-        return RecipeDTO.builder()
-                .id(recipe.getId())
-                .name(recipe.getName())
-                .description(recipe.getDescription())
-                .preparationTime(recipe.getPreparationTime())
-                .difficulty(recipe.getDifficulty())
-                .season(recipe.getSeason())
-                .healthyScore(recipe.getHealthyScore())
-                .tasteScore(recipe.getTasteScore())
-                .portions(recipe.getPortions())
-                .calories(recipe.getCalories())
-                .categories(null != recipe.getCategories() ? recipe.getCategories().stream().map(categoryMapper::toSimpleDTO).toList():null)
-                .labels(null != recipe.getLabels() ? recipe.getLabels().stream().map(labelMapper::toSimpleDTO).toList():null)
-                .steps(null != recipe.getSteps() ? recipe.getSteps().stream().map(stepMapper::toDTO).toList():null)
-                .recipeIngredients(null != recipe.getRecipeIngredients() ? recipe.getRecipeIngredients().stream().map(ingredientMapper::toDTO).toList():null)
-                .build();
+    return RecipeDTO.builder()
+        .id(recipe.getId())
+        .name(recipe.getName())
+        .description(recipe.getDescription())
+        .preparationTime(recipe.getPreparationTime())
+        .difficulty(recipe.getDifficulty())
+        .season(recipe.getSeason())
+        .healthyScore(recipe.getHealthyScore())
+        .tasteScore(recipe.getTasteScore())
+        .portions(recipe.getPortions())
+        .calories(recipe.getCalories())
+        .categories(
+            null != recipe.getCategories()
+                ? recipe.getCategories().stream().map(categoryMapper::toSimpleDTO).toList()
+                : null)
+        .labels(
+            null != recipe.getLabels()
+                ? recipe.getLabels().stream().map(labelMapper::toSimpleDTO).toList()
+                : null)
+        .steps(
+            null != recipe.getSteps()
+                ? recipe.getSteps().stream().map(stepMapper::toDTO).toList()
+                : null)
+        .recipeIngredients(
+            null != recipe.getRecipeIngredients()
+                ? recipe.getRecipeIngredients().stream().map(ingredientMapper::toDTO).toList()
+                : null)
+        .build();
+  }
 
-    }
+  public Recipe toEntity(RecipeCreateDTO createDTO) {
 
-    public Recipe toEntity(RecipeCreateDTO createDTO){
+    if (null == createDTO) return null;
 
-        if(null == createDTO)
-            return null;
+    Recipe recipe = new Recipe();
+    recipe.setName(createDTO.getName());
+    recipe.setDescription(createDTO.getDescription());
+    recipe.setPreparationTime(createDTO.getPreparationTime());
+    recipe.setDifficulty(createDTO.getDifficulty());
+    recipe.setSeason(createDTO.getSeason());
+    recipe.setHealthyScore(createDTO.getHealthyScore());
+    recipe.setTasteScore(createDTO.getTasteScore());
+    recipe.setPortions(createDTO.getPortions());
+    recipe.setCalories(createDTO.getCalories());
 
-        Recipe recipe = new Recipe();
-        recipe.setName(createDTO.getName());
-        recipe.setDescription(createDTO.getDescription());
-        recipe.setPreparationTime(createDTO.getPreparationTime());
-        recipe.setDifficulty(createDTO.getDifficulty());
-        recipe.setSeason(createDTO.getSeason());
-        recipe.setHealthyScore(createDTO.getHealthyScore());
-        recipe.setTasteScore(createDTO.getTasteScore());
-        recipe.setPortions(createDTO.getPortions());
-        recipe.setCalories(createDTO.getCalories());
+    return recipe;
+  }
 
-        return recipe;
-    }
+  public Recipe toEntity(RecipeDTO recipeDTO) {
 
-    public Recipe toEntity(RecipeDTO recipeDTO){
+    if (null == recipeDTO) return null;
 
-        if (null == recipeDTO)
-            return null;
+    Recipe recipe = new Recipe();
+    recipe.setName(recipeDTO.getName());
+    recipe.setDescription(recipeDTO.getDescription());
+    recipe.setPreparationTime(recipeDTO.getPreparationTime());
+    recipe.setDifficulty(recipeDTO.getDifficulty());
+    recipe.setSeason(recipeDTO.getSeason());
+    recipe.setHealthyScore(recipeDTO.getHealthyScore());
+    recipe.setTasteScore(recipeDTO.getTasteScore());
+    recipe.setPortions(recipeDTO.getPortions());
+    recipe.setCalories(recipeDTO.getCalories());
 
-        Recipe recipe = new Recipe();
-        recipe.setName(recipeDTO.getName());
-        recipe.setDescription(recipeDTO.getDescription());
-        recipe.setPreparationTime(recipeDTO.getPreparationTime());
-        recipe.setDifficulty(recipeDTO.getDifficulty());
-        recipe.setSeason(recipeDTO.getSeason());
-        recipe.setHealthyScore(recipeDTO.getHealthyScore());
-        recipe.setTasteScore(recipeDTO.getTasteScore());
-        recipe.setPortions(recipeDTO.getPortions());
-        recipe.setCalories(recipeDTO.getCalories());
+    return recipe;
+  }
 
-        return recipe;
-    }
+  public RecipeUpdateDTO toUpdateDTO(RecipeDTO recipeDTO) {
 
-    public RecipeUpdateDTO toUpdateDTO(RecipeDTO recipeDTO){
+    if (null == recipeDTO) return null;
 
-        if (null == recipeDTO)
-            return null;
+    RecipeUpdateDTO recipe = new RecipeUpdateDTO();
+    recipe.setName(recipeDTO.getName());
+    recipe.setDescription(recipeDTO.getDescription());
+    recipe.setPreparationTime(recipeDTO.getPreparationTime());
+    recipe.setDifficulty(recipeDTO.getDifficulty());
+    recipe.setSeason(recipeDTO.getSeason());
+    recipe.setHealthyScore(recipeDTO.getHealthyScore());
+    recipe.setTasteScore(recipeDTO.getTasteScore());
+    recipe.setPortions(recipeDTO.getPortions());
+    recipe.setCalories(recipeDTO.getCalories());
 
-        RecipeUpdateDTO recipe = new RecipeUpdateDTO();
-        recipe.setName(recipeDTO.getName());
-        recipe.setDescription(recipeDTO.getDescription());
-        recipe.setPreparationTime(recipeDTO.getPreparationTime());
-        recipe.setDifficulty(recipeDTO.getDifficulty());
-        recipe.setSeason(recipeDTO.getSeason());
-        recipe.setHealthyScore(recipeDTO.getHealthyScore());
-        recipe.setTasteScore(recipeDTO.getTasteScore());
-        recipe.setPortions(recipeDTO.getPortions());
-        recipe.setCalories(recipeDTO.getCalories());
+    return recipe;
+  }
 
-        return recipe;
-    }
+  public void updateEntity(RecipeUpdateDTO updateDTO, Recipe recipe) {
 
-    public void updateEntity(RecipeUpdateDTO updateDTO, Recipe recipe){
+    if (null == updateDTO) return;
 
-        if (null == updateDTO)
-            return;
+    if (updateDTO.getName() != null) recipe.setName(updateDTO.getName());
 
-        if (updateDTO.getName() != null)
-            recipe.setName(updateDTO.getName());
+    if (updateDTO.getDescription() != null) recipe.setDescription(updateDTO.getDescription());
 
-        if (updateDTO.getDescription() != null)
-            recipe.setDescription(updateDTO.getDescription());
+    if (updateDTO.getPreparationTime() != null)
+      recipe.setPreparationTime(updateDTO.getPreparationTime());
 
-        if (updateDTO.getPreparationTime() != null)
-            recipe.setPreparationTime(updateDTO.getPreparationTime());
+    if (updateDTO.getDifficulty() != null) recipe.setDifficulty(updateDTO.getDifficulty());
 
-        if (updateDTO.getDifficulty() != null)
-            recipe.setDifficulty(updateDTO.getDifficulty());
+    if (updateDTO.getSeason() != null) recipe.setSeason(updateDTO.getSeason());
 
-        if (updateDTO.getSeason() != null)
-            recipe.setSeason(updateDTO.getSeason());
+    if (updateDTO.getHealthyScore() != null) recipe.setHealthyScore(updateDTO.getHealthyScore());
 
-        if (updateDTO.getHealthyScore() != null)
-            recipe.setHealthyScore(updateDTO.getHealthyScore());
+    if (updateDTO.getTasteScore() != null) recipe.setTasteScore(updateDTO.getTasteScore());
 
-        if (updateDTO.getTasteScore() != null)
-            recipe.setTasteScore(updateDTO.getTasteScore());
+    if (updateDTO.getPortions() != null) recipe.setPortions(updateDTO.getPortions());
 
-        if (updateDTO.getPortions() != null)
-            recipe.setPortions(updateDTO.getPortions());
-
-        if (updateDTO.getCalories() != null)
-            recipe.setCalories(updateDTO.getCalories());
-
-    }
-
+    if (updateDTO.getCalories() != null) recipe.setCalories(updateDTO.getCalories());
+  }
 }

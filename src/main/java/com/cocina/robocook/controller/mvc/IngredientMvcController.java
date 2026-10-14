@@ -4,13 +4,12 @@ import com.cocina.robocook.dto.IngredientCreateDTO;
 import com.cocina.robocook.dto.IngredientDTO;
 import com.cocina.robocook.dto.IngredientUpdateDTO;
 import com.cocina.robocook.service.IngredientService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/backoffice/ingredients")
@@ -18,71 +17,76 @@ import java.util.List;
 @Slf4j
 public class IngredientMvcController {
 
-    private static final String REDIRECT_LIST = "redirect:/backoffice/ingredients/list";
-    private final IngredientService ingredientService;
+  private static final String REDIRECT_LIST = "redirect:/backoffice/ingredients/list";
+  private final IngredientService ingredientService;
 
-    @GetMapping("/list")
-    public String listIngredients(Model model){
-        log.info("GET /ingredients/list - Listing ingredients in backoffice");
+  @GetMapping("/list")
+  public String listIngredients(Model model) {
+    log.info("GET /ingredients/list - Listing ingredients in backoffice");
 
-        List<IngredientDTO> ingredients = ingredientService.findAll();
-        model.addAttribute("ingredients", ingredients);
-        model.addAttribute("title", "Ingredient");
+    List<IngredientDTO> ingredients = ingredientService.findAll();
+    model.addAttribute("ingredients", ingredients);
+    addTitleToForm(model);
 
-        return "ingredient/list-ingredient";
-    }
+    return "ingredient/list-ingredient";
+  }
 
-    @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model){
-        log.info("GET /ingredients/showFormForAdd - show creation form");
+  @GetMapping("/showFormForAdd")
+  public String showFormForAdd(Model model) {
+    log.info("GET /ingredients/showFormForAdd - show creation form");
 
-        model.addAttribute("theIngredient", new IngredientCreateDTO());
-        model.addAttribute("title", "Ingredient");
+    model.addAttribute("theIngredient", new IngredientCreateDTO());
+    addTitleToForm(model);
 
-        return "ingredient/ingredient-form";
-    }
+    return "ingredient/ingredient-form";
+  }
 
-    @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("ingredientId") int theId, Model model){
-        log.info("GET /ingredients/showFormForUpdate - show update form");
+  @GetMapping("/showFormForUpdate")
+  public String showFormForUpdate(@RequestParam("ingredientId") int theId, Model model) {
+    log.info("GET /ingredients/showFormForUpdate - show update form");
 
-        IngredientDTO theIngredient = ingredientService.findById((long) theId);
-        model.addAttribute("theIngredient", theIngredient);
-        model.addAttribute("title", "Ingredient");
+    IngredientDTO theIngredient = ingredientService.findById((long) theId);
+    model.addAttribute("theIngredient", theIngredient);
+    addTitleToForm(model);
 
-        return "ingredient/ingredient-update-form";
-    }
+    return "ingredient/ingredient-update-form";
+  }
 
-    @PostMapping("/save")
-    public String saveIngredient(@ModelAttribute("theIngredient") IngredientCreateDTO createDTO){
-        log.info("POST /ingredients/save - Save ingredient: {}", createDTO.getName());
+  @PostMapping("/save")
+  public String saveIngredient(@ModelAttribute("theIngredient") IngredientCreateDTO createDTO) {
+    log.info("POST /ingredients/save - Save ingredient: {}", createDTO.getName());
 
-        ingredientService.create(createDTO);
-        return REDIRECT_LIST;
-    }
+    ingredientService.create(createDTO);
+    return REDIRECT_LIST;
+  }
 
-    @PostMapping("/update")
-    public String updateIngredient(@ModelAttribute("theIngredient") IngredientUpdateDTO updateDTO
-            , @ModelAttribute("id") int theId){
-        log.info("POST /ingredients/update - Update ingredient: {}", updateDTO.getName());
+  @PostMapping("/update")
+  public String updateIngredient(
+      @ModelAttribute("theIngredient") IngredientUpdateDTO updateDTO,
+      @ModelAttribute("id") int theId) {
+    log.info("POST /ingredients/update - Update ingredient: {}", updateDTO.getName());
 
-        ingredientService.update((long)theId, updateDTO);
-        return REDIRECT_LIST;
-    }
+    ingredientService.update((long) theId, updateDTO);
+    return REDIRECT_LIST;
+  }
 
-    @GetMapping("/delete")
-    public String deleteIngredient(@RequestParam("ingredientId") int theId){
-        log.info("GET /ingredients/delete - Delete ingredient: {}", theId);
+  @GetMapping("/delete")
+  public String deleteIngredient(@RequestParam("ingredientId") int theId) {
+    log.info("GET /ingredients/delete - Delete ingredient: {}", theId);
 
-        ingredientService.deleteById((long)theId);
-        return REDIRECT_LIST;
-    }
+    ingredientService.deleteById((long) theId);
+    return REDIRECT_LIST;
+  }
 
-    @GetMapping("/search")
-    @ResponseBody
-    public List<IngredientDTO> search(@RequestParam String query) {
-        log.info("GET /ingredients/search?query={} - Finding ingredients", query);
+  @GetMapping("/search")
+  @ResponseBody
+  public List<IngredientDTO> search(@RequestParam String query) {
+    log.info("GET /ingredients/search?query={} - Finding ingredients", query);
 
-        return ingredientService.findByNameContaining(query);
-    }
+    return ingredientService.findByNameContaining(query);
+  }
+
+ private void addTitleToForm(Model model){
+   model.addAttribute("title", "Ingredient");
+ }
 }
